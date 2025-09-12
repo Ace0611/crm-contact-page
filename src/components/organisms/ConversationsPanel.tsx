@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
 import MessageRenderer from '../molecules/MessageRenderer'
-import { useConversationsData } from '../../hooks/useConversationsData'
-import type { Conversation } from '../../types'
+import { useContactConversations } from '../../hooks/useConversationsData'
+import type { Conversation, Contact } from '../../types'
 
 interface ConversationsPanelProps {
+  contact: Contact
   className?: string
 }
 
-export default function ConversationsPanel({ className = '' }: ConversationsPanelProps) {
+export default function ConversationsPanel({ contact, className = '' }: ConversationsPanelProps) {
   const [isConversationsCollapsed, setIsConversationsCollapsed] = useState(false)
   const [messageType, setMessageType] = useState<'email' | 'whatsapp'>('email')
   const [isTyping, setIsTyping] = useState(false)
@@ -15,7 +16,11 @@ export default function ConversationsPanel({ className = '' }: ConversationsPane
   const [showDropdown, setShowDropdown] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-  const { data: conversationsData, isLoading, error } = useConversationsData()
+  const { data: contactConversations, isLoading, error } = useContactConversations(contact.id)
+
+  // Debug logging
+  console.log('ConversationsPanel - Contact changed:', contact.id, contact.firstName)
+  console.log('ConversationsPanel - Contact conversations:', contactConversations)
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -149,7 +154,7 @@ export default function ConversationsPanel({ className = '' }: ConversationsPane
       </div>
       
       <div className={`conversations-content ${isConversationsCollapsed ? 'collapsed' : ''}`}>
-        {conversationsData?.conversations.map((conversation: Conversation) => (
+        {contactConversations?.conversations.map((conversation: Conversation) => (
           <div key={conversation.id} className="conversation-thread">
             {/* Thread Subject */}
             <div className="thread-subject">
@@ -182,7 +187,7 @@ export default function ConversationsPanel({ className = '' }: ConversationsPane
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
             </div>
-            <span>Olivia is typing...</span>
+            <span>{contact.firstName} is typing...</span>
           </div>
         )}
 

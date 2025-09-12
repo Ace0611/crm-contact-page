@@ -14,6 +14,7 @@ export type {
   MessageSender,
   Message,
   Conversation,
+  ContactConversations,
   ConversationsData,
   Note,
   NotesData,

@@ -15,6 +15,7 @@ interface CRMDashboardProps {
 export default function CRMDashboard({ contacts, fields, className = '' }: CRMDashboardProps) {
   const [currentContactIndex, setCurrentContactIndex] = useState(0)
   const totalContacts = contacts.length
+  const currentContact = contacts[currentContactIndex]
 
   const handlePrevious = () => {
     if (currentContactIndex > 0) {
@@ -33,11 +34,17 @@ export default function CRMDashboard({ contacts, fields, className = '' }: CRMDa
       <div className="dashboard-content">
         <div className="dashboard-columns">
           <div className="column column-contact">
-            <ContactDetailsPanel contacts={contacts} fields={fields} />
+            <ContactDetailsPanel 
+              contacts={contacts} 
+              fields={fields} 
+              currentContactIndex={currentContactIndex}
+              onPrevious={handlePrevious}
+              onNext={handleNext}
+            />
           </div>
           
           <div className="column column-conversations">
-            <ConversationsPanel />
+            <ConversationsPanel contact={currentContact} />
           </div>
           
           <div className="column column-notes">

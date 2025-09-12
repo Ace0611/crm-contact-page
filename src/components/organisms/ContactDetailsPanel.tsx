@@ -5,32 +5,29 @@ import Avatar from '../atoms/Avatar'
 interface ContactDetailsPanelProps {
   contacts: Contact[]
   fields: FieldDefinitions
+  currentContactIndex: number
+  onPrevious: () => void
+  onNext: () => void
   className?: string
 }
 
-export default function ContactDetailsPanel({ contacts, fields, className = '' }: ContactDetailsPanelProps) {
+export default function ContactDetailsPanel({ 
+  contacts, 
+  fields, 
+  currentContactIndex,
+  onPrevious,
+  onNext,
+  className = '' 
+}: ContactDetailsPanelProps) {
   const [isContactCollapsed, setIsContactCollapsed] = useState(false)
   const [isAdditionalInfoCollapsed, setIsAdditionalInfoCollapsed] = useState(false)
   const [isDriverPreferencesCollapsed, setIsDriverPreferencesCollapsed] = useState(true) // Start collapsed as per original design
   const [searchTerm, setSearchTerm] = useState('')
-  const [currentContactIndex, setCurrentContactIndex] = useState(0)
 
   // Get current contact
   const contact = contacts[currentContactIndex]
   const totalContacts = contacts.length
 
-  // Pagination handlers
-  const goToPreviousContact = () => {
-    if (currentContactIndex > 0) {
-      setCurrentContactIndex(currentContactIndex - 1)
-    }
-  }
-
-  const goToNextContact = () => {
-    if (currentContactIndex < totalContacts - 1) {
-      setCurrentContactIndex(currentContactIndex + 1)
-    }
-  }
 
   // Helper function to get field value from contact
   const getFieldValue = (fieldKey: string) => {
@@ -193,7 +190,7 @@ export default function ContactDetailsPanel({ contacts, fields, className = '' }
           <div className="header-nav">
             <button 
               className="btn-icon" 
-              onClick={goToPreviousContact}
+              onClick={onPrevious}
               disabled={currentContactIndex === 0}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -202,7 +199,7 @@ export default function ContactDetailsPanel({ contacts, fields, className = '' }
             </button>
             <button 
               className="btn-icon" 
-              onClick={goToNextContact}
+              onClick={onNext}
               disabled={currentContactIndex === totalContacts - 1}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

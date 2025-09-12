@@ -1,101 +1,257 @@
 {
-  "conversations": [
-    {
-      "id": "conv_001",
-      "subject": "Set up a new time to follow up on the mail chain issue that we talked about the...",
-      "threadCount": 3,
-      "messages": [
+  "conversations": {
+    "c_001": {
+      "contactId": "c_001",
+      "contactName": "Olivia John",
+      "conversations": [
         {
-          "id": "msg_001",
-          "type": "email",
-          "sender": {
-            "name": "Olivia John",
-            "avatar": "OJ",
-            "recipient": "To: Me"
-          },
-          "timestamp": "5 min ago",
-          "actions": [
+          "id": "conv_001",
+          "subject": "Set up a new time to follow up on the mail chain issue that we talked about the...",
+          "threadCount": 3,
+          "messages": [
             {
-              "type": "star",
-              "icon": "star",
-              "filled": true
+              "id": "msg_001",
+              "type": "email",
+              "sender": {
+                "name": "Olivia John",
+                "avatar": "OJ",
+                "recipient": "To: Me"
+              },
+              "timestamp": "5 min ago",
+              "actions": [
+                {
+                  "type": "star",
+                  "icon": "star",
+                  "filled": true
+                },
+                {
+                  "type": "reply",
+                  "icon": "reply"
+                },
+                {
+                  "type": "more",
+                  "icon": "more"
+                }
+              ],
+              "content": {
+                "text": "Hey John, You Order has reached. Your Urban Wellness LLP order has arrived in your city. Click the button below to track your order in real-time. Arriving on Tuesday, November 19th.",
+                "cta": {
+                  "text": "Track Your Order",
+                  "action": "track"
+                }
+              },
+              "footer": {
+                "replyButton": true
+              }
             },
             {
-              "type": "reply",
-              "icon": "reply"
-            },
-            {
-              "type": "more",
-              "icon": "more"
+              "id": "msg_002",
+              "type": "whatsapp",
+              "sender": {
+                "name": "Olivia",
+                "avatar": "OJ"
+              },
+              "timestamp": "11:44 AM",
+              "content": {
+                "text": "Please let me know"
+              },
+              "platform": "whatsapp"
             }
-          ],
-          "content": {
-            "text": "Hey John, You Order has reached. Your Urban Wellness LLP order has arrived in your city. Click the button below to track your order in real-time. Arriving on Tuesday, November 19th.",
-            "cta": {
-              "text": "Track Your Order",
-              "action": "track"
-            }
-          },
-          "footer": {
-            "replyButton": true
-          }
-        },
-        {
-          "id": "msg_002",
-          "type": "whatsapp",
-          "sender": {
-            "name": "Olivia",
-            "avatar": "OJ"
-          },
-          "timestamp": "11:44 AM",
-          "content": {
-            "text": "Please let me know"
-          },
-          "platform": "whatsapp"
+          ]
         }
       ]
     },
-    {
-      "id": "conv_002",
-      "subject": "Follow up on project proposal",
-      "threadCount": 2,
-      "messages": [
+    "c_002": {
+      "contactId": "c_002",
+      "contactName": "Aaron Smith",
+      "conversations": [
         {
-          "id": "msg_003",
-          "type": "email",
-          "sender": {
-            "name": "Sarah Wilson",
-            "avatar": "SW",
-            "recipient": "To: Me"
-          },
-          "timestamp": "2 hours ago",
-          "actions": [
+          "id": "conv_002",
+          "subject": "Project Discussion",
+          "threadCount": 2,
+          "messages": [
             {
-              "type": "star",
-              "icon": "star",
-              "filled": false
-            },
-            {
-              "type": "reply",
-              "icon": "reply"
-            },
-            {
-              "type": "more",
-              "icon": "more"
+              "id": "msg_003",
+              "type": "email",
+              "sender": {
+                "name": "Aaron Smith",
+                "avatar": "AS",
+                "recipient": "To: Me"
+              },
+              "timestamp": "1 hour ago",
+              "actions": [
+                {
+                  "type": "star",
+                  "icon": "star",
+                  "filled": false
+                },
+                {
+                  "type": "reply",
+                  "icon": "reply"
+                },
+                {
+                  "type": "more",
+                  "icon": "more"
+                }
+              ],
+              "content": {
+                "text": "Hi there, I wanted to discuss the new project requirements. Can we schedule a meeting for next week?",
+                "cta": {
+                  "text": "Schedule Meeting",
+                  "action": "schedule"
+                }
+              },
+              "footer": {
+                "replyButton": true
+              }
             }
-          ],
-          "content": {
-            "text": "Hi John, I wanted to follow up on the project proposal we discussed last week. Could you please review the attached documents and let me know your thoughts?",
-            "cta": {
-              "text": "View Documents",
-              "action": "view"
+          ]
+        }
+      ]
+    },
+    "c_003": {
+      "contactId": "c_003",
+      "contactName": "Emma Davis",
+      "conversations": [
+        {
+          "id": "conv_003",
+          "subject": "Design Review",
+          "threadCount": 1,
+          "messages": [
+            {
+              "id": "msg_004",
+              "type": "email",
+              "sender": {
+                "name": "Emma Davis",
+                "avatar": "ED",
+                "recipient": "To: Me"
+              },
+              "timestamp": "3 hours ago",
+              "actions": [
+                {
+                  "type": "star",
+                  "icon": "star",
+                  "filled": true
+                },
+                {
+                  "type": "reply",
+                  "icon": "reply"
+                },
+                {
+                  "type": "more",
+                  "icon": "more"
+                }
+              ],
+              "content": {
+                "text": "The design mockups are ready for review. Please take a look and let me know your feedback.",
+                "cta": {
+                  "text": "View Mockups",
+                  "action": "view"
+                }
+              },
+              "footer": {
+                "replyButton": true
+              }
             }
-          },
-          "footer": {
-            "replyButton": true
-          }
+          ]
+        }
+      ]
+    },
+    "c_004": {
+      "contactId": "c_004",
+      "contactName": "Michael Brown",
+      "conversations": [
+        {
+          "id": "conv_004",
+          "subject": "Contract Negotiation",
+          "threadCount": 4,
+          "messages": [
+            {
+              "id": "msg_005",
+              "type": "email",
+              "sender": {
+                "name": "Michael Brown",
+                "avatar": "MB",
+                "recipient": "To: Me"
+              },
+              "timestamp": "2 hours ago",
+              "actions": [
+                {
+                  "type": "star",
+                  "icon": "star",
+                  "filled": false
+                },
+                {
+                  "type": "reply",
+                  "icon": "reply"
+                },
+                {
+                  "type": "more",
+                  "icon": "more"
+                }
+              ],
+              "content": {
+                "text": "I've reviewed the contract terms. There are a few points we need to discuss before finalizing.",
+                "cta": {
+                  "text": "Review Contract",
+                  "action": "review"
+                }
+              },
+              "footer": {
+                "replyButton": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "c_005": {
+      "contactId": "c_005",
+      "contactName": "Sophia Wilson",
+      "conversations": [
+        {
+          "id": "conv_005",
+          "subject": "Innovation Proposal",
+          "threadCount": 2,
+          "messages": [
+            {
+              "id": "msg_006",
+              "type": "email",
+              "sender": {
+                "name": "Sophia Wilson",
+                "avatar": "SW",
+                "recipient": "To: Me"
+              },
+              "timestamp": "4 hours ago",
+              "actions": [
+                {
+                  "type": "star",
+                  "icon": "star",
+                  "filled": true
+                },
+                {
+                  "type": "reply",
+                  "icon": "reply"
+                },
+                {
+                  "type": "more",
+                  "icon": "more"
+                }
+              ],
+              "content": {
+                "text": "I have an exciting innovation proposal for our next project. Let's discuss this in detail.",
+                "cta": {
+                  "text": "View Proposal",
+                  "action": "view"
+                }
+              },
+              "footer": {
+                "replyButton": true
+              }
+            }
+          ]
         }
       ]
     }
-  ]
+  }
 }

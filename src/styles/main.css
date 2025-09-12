@@ -880,7 +880,7 @@ p {
 
 .search-input input {
   width: 100%;
-  padding: 0.75rem 2.5rem 0.75rem 2.5rem;
+  padding: 0.75rem 2.5rem 0.75rem 2.75rem;
   border: 1px solid #d1d5db;
   border-radius: 0.5rem;
   font-size: 0.875rem;
@@ -894,7 +894,7 @@ p {
 
 .search-icon {
   position: absolute;
-  left: 0.75rem;
+  left: 0.875rem;
   color: #6b7280;
   width: 1rem;
   height: 1rem;
@@ -1563,6 +1563,95 @@ p {
   }
 }
 
+/* Medium-small screens (480px to 600px) - Keep tabs horizontal */
+@media (min-width: 480px) and (max-width: 600px) {
+  .contact-details-panel .contact-tabs {
+    flex-direction: row !important;
+    gap: 0.25rem;
+    overflow-x: auto;
+  }
+  
+  .contact-details-panel .tab {
+    flex-shrink: 0;
+    min-width: auto;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    width: auto !important;
+  }
+  
+  .contact-details-panel .search-input {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+  
+  .contact-details-panel .search-input input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.75rem 2.5rem 0.75rem 2.75rem;
+  }
+  
+  .contact-details-panel .search-icon {
+    position: absolute;
+    left: 0.875rem;
+    flex-shrink: 0;
+  }
+  
+  .contact-details-panel .filter-icon {
+    position: absolute;
+    right: 0.75rem;
+    flex-shrink: 0;
+  }
+  
+  .contact-details-panel .panel-actions {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .contact-details-panel .contact-pagination {
+    font-size: 0.875rem;
+  }
+  
+  .contact-details-panel .header-nav {
+    gap: 0.5rem;
+  }
+}
+
+/* Specific fix for 490px screen size */
+@media (min-width: 485px) and (max-width: 520px) {
+  .contact-details-panel .contact-tabs {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0.25rem;
+    overflow-x: auto;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 1rem;
+  }
+  
+  .contact-details-panel .tab {
+    display: inline-block !important;
+    flex-shrink: 0;
+    min-width: auto;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    width: auto !important;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-bottom: none;
+    cursor: pointer;
+    color: #6b7280;
+    border-radius: 0.375rem 0.375rem 0 0;
+    transition: all 0.2s ease;
+    font-weight: 500;
+  }
+  
+  .contact-details-panel .tab-active {
+    background: #f3f4f6;
+    color: #374151;
+    border-color: #d1d5db;
+  }
+}
+
 /* Small screens (767px and below) */
 @media (max-width: 767px) {
   .dashboard-columns {
@@ -1628,6 +1717,24 @@ p {
     width: 100%;
   }
   
+  .meta-item {
+    width: 100%;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .meta-value {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .followers-avatars {
+    flex-shrink: 0;
+  }
+  
   .contact-owner-followers {
     flex-direction: column;
     align-items: flex-start;
@@ -1645,6 +1752,17 @@ p {
     gap: 0.5rem;
   }
   
+  .tag-container {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  
+  .tag {
+    flex-shrink: 0;
+    max-width: calc(50% - 0.25rem);
+  }
+  
   .contact-tabs {
     flex-direction: column;
     gap: 0.5rem;
@@ -1657,6 +1775,40 @@ p {
   
   .search-input {
     width: 100%;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .search-input input {
+    width: 100%;
+    min-width: 0;
+    padding: 0.75rem 2.5rem 0.75rem 2.75rem;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 0.875rem;
+  }
+  
+  .filter-icon {
+    position: absolute;
+    right: 0.75rem;
+  }
+  
+  .panel-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  
+  .contact-pagination {
+    font-size: 0.875rem;
+    text-align: center;
+  }
+  
+  .header-nav {
+    justify-content: center;
+    gap: 1rem;
   }
   
   .field-row {
@@ -1723,6 +1875,57 @@ p {
     gap: 0.5rem;
   }
   
+  /* Contact Details Panel - Very Small Screens */
+  .contact-details-panel {
+    padding: 0.5rem;
+  }
+  
+  .panel-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+  
+  .panel-actions {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .contact-pagination {
+    font-size: 0.75rem;
+  }
+  
+  .header-nav {
+    gap: 0.5rem;
+  }
+  
+  .search-input {
+    width: 100%;
+  }
+  
+  .search-input input {
+    font-size: 0.875rem;
+    padding: 0.5rem;
+  }
+  
+  .contact-meta {
+    gap: 0.25rem;
+  }
+  
+  .meta-item {
+    gap: 0.125rem;
+  }
+  
+  .meta-value {
+    gap: 0.25rem;
+  }
+  
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+
   /* Typography Mobile */
   h1 { font-size: 1.75rem; }
   h2 { font-size: 1.5rem; }

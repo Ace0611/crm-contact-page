@@ -103,9 +103,16 @@ export const ConversationSchema = z.object({
   messages: z.array(MessageSchema),
 })
 
-// Conversations Data Schema
-export const ConversationsDataSchema = z.object({
+// Contact Conversations Schema
+export const ContactConversationsSchema = z.object({
+  contactId: z.string(),
+  contactName: z.string(),
   conversations: z.array(ConversationSchema),
+})
+
+// Conversations Data Schema (now contact-specific)
+export const ConversationsDataSchema = z.object({
+  conversations: z.record(z.string(), ContactConversationsSchema),
 })
 
 // Note Schema
@@ -134,6 +141,7 @@ export type MessageContent = z.infer<typeof MessageContentSchema>
 export type MessageSender = z.infer<typeof MessageSenderSchema>
 export type Message = z.infer<typeof MessageSchema>
 export type Conversation = z.infer<typeof ConversationSchema>
+export type ContactConversations = z.infer<typeof ContactConversationsSchema>
 export type ConversationsData = z.infer<typeof ConversationsDataSchema>
 export type Note = z.infer<typeof NoteSchema>
 export type NotesData = z.infer<typeof NotesDataSchema>
