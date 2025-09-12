@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Contact, FieldDefinitions } from '../../types'
 import Avatar from '../atoms/Avatar'
+import { useLayout } from '../../hooks/useLayout'
 
 interface ContactDetailsPanelProps {
   contacts: Contact[]
@@ -8,6 +9,7 @@ interface ContactDetailsPanelProps {
   currentContactIndex: number
   onPrevious: () => void
   onNext: () => void
+  layoutType: 'default' | 'alternative'
   className?: string
 }
 
@@ -17,6 +19,7 @@ export default function ContactDetailsPanel({
   currentContactIndex,
   onPrevious,
   onNext,
+  layoutType,
   className = '' 
 }: ContactDetailsPanelProps) {
   const [isContactCollapsed, setIsContactCollapsed] = useState(false)
@@ -27,6 +30,12 @@ export default function ContactDetailsPanel({
   // Get current contact
   const contact = contacts[currentContactIndex]
   const totalContacts = contacts.length
+
+  // Get layout configuration (for future use)
+  const { layout } = useLayout(layoutType)
+  
+  // Debug: Log layout changes
+  console.log('Layout type:', layoutType, 'Layout data:', layout)
 
 
   // Helper function to get field value from contact
