@@ -39,10 +39,66 @@ export const ContactSchema = z.object({
   tags: z.array(z.string()).optional(),
 })
 
+// Message Action Schema
+export const MessageActionSchema = z.object({
+  type: z.enum(['star', 'reply', 'more']),
+  icon: z.string(),
+  filled: z.boolean().optional(),
+})
+
+// Message Content Schema
+export const MessageContentSchema = z.object({
+  text: z.string(),
+  cta: z.object({
+    text: z.string(),
+    action: z.string(),
+  }).optional(),
+})
+
+// Message Sender Schema
+export const MessageSenderSchema = z.object({
+  name: z.string(),
+  avatar: z.string(),
+  recipient: z.string().optional(),
+})
+
+// Message Schema
+export const MessageSchema = z.object({
+  id: z.string(),
+  type: z.enum(['email', 'whatsapp']),
+  sender: MessageSenderSchema,
+  timestamp: z.string(),
+  actions: z.array(MessageActionSchema).optional(),
+  content: MessageContentSchema,
+  footer: z.object({
+    replyButton: z.boolean(),
+  }).optional(),
+  platform: z.string().optional(),
+})
+
+// Conversation Schema
+export const ConversationSchema = z.object({
+  id: z.string(),
+  subject: z.string(),
+  threadCount: z.number(),
+  messages: z.array(MessageSchema),
+})
+
+// Conversations Data Schema
+export const ConversationsDataSchema = z.object({
+  conversations: z.array(ConversationSchema),
+})
+
 // Export inferred types
 export type FieldDefinition = z.infer<typeof FieldDefinitionSchema>
 export type FieldDefinitions = z.infer<typeof FieldDefinitionsSchema>
 export type LayoutSection = z.infer<typeof LayoutSectionSchema>
 export type Layout = z.infer<typeof LayoutSchema>
 export type Contact = z.infer<typeof ContactSchema>
+export type MessageAction = z.infer<typeof MessageActionSchema>
+export type MessageContent = z.infer<typeof MessageContentSchema>
+export type MessageSender = z.infer<typeof MessageSenderSchema>
+export type Message = z.infer<typeof MessageSchema>
+export type Conversation = z.infer<typeof ConversationSchema>
+export type ConversationsData = z.infer<typeof ConversationsDataSchema>
 

@@ -5,6 +5,12 @@ export type {
   LayoutSection,
   Layout,
   Contact,
+  MessageAction,
+  MessageContent,
+  MessageSender,
+  Message,
+  Conversation,
+  ConversationsData,
 } from './schemas'
 
 // Additional utility types

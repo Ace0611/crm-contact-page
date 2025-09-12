@@ -1,0 +1,101 @@
+{
+  "conversations": [
+    {
+      "id": "conv_001",
+      "subject": "Set up a new time to follow up on the mail chain issue that we talked about the...",
+      "threadCount": 3,
+      "messages": [
+        {
+          "id": "msg_001",
+          "type": "email",
+          "sender": {
+            "name": "Olivia John",
+            "avatar": "OJ",
+            "recipient": "To: Me"
+          },
+          "timestamp": "5 min ago",
+          "actions": [
+            {
+              "type": "star",
+              "icon": "star",
+              "filled": true
+            },
+            {
+              "type": "reply",
+              "icon": "reply"
+            },
+            {
+              "type": "more",
+              "icon": "more"
+            }
+          ],
+          "content": {
+            "text": "Hey John, You Order has reached. Your Urban Wellness LLP order has arrived in your city. Click the button below to track your order in real-time. Arriving on Tuesday, November 19th.",
+            "cta": {
+              "text": "Track Your Order",
+              "action": "track"
+            }
+          },
+          "footer": {
+            "replyButton": true
+          }
+        },
+        {
+          "id": "msg_002",
+          "type": "whatsapp",
+          "sender": {
+            "name": "Olivia",
+            "avatar": "OJ"
+          },
+          "timestamp": "11:44 AM",
+          "content": {
+            "text": "Please let me know"
+          },
+          "platform": "whatsapp"
+        }
+      ]
+    },
+    {
+      "id": "conv_002",
+      "subject": "Follow up on project proposal",
+      "threadCount": 2,
+      "messages": [
+        {
+          "id": "msg_003",
+          "type": "email",
+          "sender": {
+            "name": "Sarah Wilson",
+            "avatar": "SW",
+            "recipient": "To: Me"
+          },
+          "timestamp": "2 hours ago",
+          "actions": [
+            {
+              "type": "star",
+              "icon": "star",
+              "filled": false
+            },
+            {
+              "type": "reply",
+              "icon": "reply"
+            },
+            {
+              "type": "more",
+              "icon": "more"
+            }
+          ],
+          "content": {
+            "text": "Hi John, I wanted to follow up on the project proposal we discussed last week. Could you please review the attached documents and let me know your thoughts?",
+            "cta": {
+              "text": "View Documents",
+              "action": "view"
+            }
+          },
+          "footer": {
+            "replyButton": true
+          }
+        }
+      ]
+    }
+  ]
+}
