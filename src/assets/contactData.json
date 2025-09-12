@@ -12,7 +12,9 @@
     "country": "United States",
     "owner": "Devon Lane",
     "followers": ["John Doe", "Jane Wilson"],
-    "tags": ["VIP", "Enterprise", "Technical"]
+    "tags": ["VIP", "Enterprise", "Technical"],
+    "driverPreference": "Professional Driver",
+    "vehicleType": "Sedan"
   },
   {
     "id": "c_002",
@@ -27,7 +29,9 @@
     "country": "United States",
     "owner": "Sarah Wilson",
     "followers": ["Mike Johnson", "Lisa Brown"],
-    "tags": ["Premium", "Business", "Marketing"]
+    "tags": ["Premium", "Business", "Marketing"],
+    "driverPreference": "Luxury Driver",
+    "vehicleType": "SUV"
   },
   {
     "id": "c_003",
@@ -42,7 +46,9 @@
     "country": "United States",
     "owner": "John Doe",
     "followers": ["Alex Green", "Maria Garcia"],
-    "tags": ["Creative", "Design", "Startup"]
+    "tags": ["Creative", "Design", "Startup"],
+    "driverPreference": "Eco Driver",
+    "vehicleType": "Hybrid"
   },
   {
     "id": "c_004",
@@ -57,7 +63,9 @@
     "country": "United States",
     "owner": "Jane Wilson",
     "followers": ["David Lee", "Anna Taylor"],
-    "tags": ["Enterprise", "Global", "Finance"]
+    "tags": ["Enterprise", "Global", "Finance"],
+    "driverPreference": "Executive Driver",
+    "vehicleType": "Luxury Sedan"
   },
   {
     "id": "c_005",
@@ -72,6 +80,8 @@
     "country": "United States",
     "owner": "Devon Lane",
     "followers": ["Chris Miller", "Rachel White"],
-    "tags": ["Innovation", "Tech", "Research"]
+    "tags": ["Innovation", "Tech", "Research"],
+    "driverPreference": "Tech Driver",
+    "vehicleType": "Electric Vehicle"
   }
 ]

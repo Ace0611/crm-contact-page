@@ -20,6 +20,13 @@
         { "key": "owner", "label": "Owner", "type": "radio" },
         { "key": "followers", "label": "Followers", "type": "multi-select" }
       ]
+    },
+    {
+      "name": "Head Car Driver Preferences",
+      "fields": [
+        { "key": "driverPreference", "label": "Driver Preference", "type": "string" },
+        { "key": "vehicleType", "label": "Vehicle Type", "type": "string" }
+      ]
     }
   ]
 }

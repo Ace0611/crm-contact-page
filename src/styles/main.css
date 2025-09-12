@@ -641,16 +641,6 @@ p {
   color: #374151;
 }
 
-.btn-icon:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.btn-icon:disabled:hover {
-  background-color: transparent;
-  color: #6b7280;
-}
-
 /* Contact Details Panel */
 .contact-details-panel {
   padding: 1rem;

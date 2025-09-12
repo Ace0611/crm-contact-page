@@ -8,7 +8,7 @@ interface ContactDetailsPanelProps {
   className?: string
 }
 
-export default function ContactDetailsPanel({ contacts, className = '' }: ContactDetailsPanelProps) {
+export default function ContactDetailsPanel({ contacts, fields, className = '' }: ContactDetailsPanelProps) {
   const [isContactCollapsed, setIsContactCollapsed] = useState(false)
   const [isAdditionalInfoCollapsed, setIsAdditionalInfoCollapsed] = useState(false)
   const [isDriverPreferencesCollapsed, setIsDriverPreferencesCollapsed] = useState(true) // Start collapsed as per original design
@@ -32,42 +32,82 @@ export default function ContactDetailsPanel({ contacts, className = '' }: Contac
     }
   }
 
+  // Helper function to get field value from contact
+  const getFieldValue = (fieldKey: string) => {
+    return (contact as any)[fieldKey] || ''
+  }
+
   // Filter fields based on search term
-  const filterFields = (fieldName: string, fieldValue: string | undefined) => {
+  const filterFields = (fieldLabel: string, fieldValue: any) => {
     if (!searchTerm) return true
     const searchLower = searchTerm.toLowerCase()
-    const fieldNameLower = fieldName.toLowerCase()
+    const fieldLabelLower = fieldLabel.toLowerCase()
     
-    // Always show if field name matches search term
-    if (fieldNameLower.includes(searchLower)) return true
+    // Always show if field label matches search term
+    if (fieldLabelLower.includes(searchLower)) return true
     
     // Show if field value matches search term (only if value exists)
-    if (fieldValue && fieldValue.toLowerCase().includes(searchLower)) return true
+    if (fieldValue) {
+      // Handle different data types
+      if (typeof fieldValue === 'string') {
+        if (fieldValue.toLowerCase().includes(searchLower)) return true
+      } else if (Array.isArray(fieldValue)) {
+        // For arrays like followers, check if any item matches
+        if (fieldValue.some(item => 
+          typeof item === 'string' && item.toLowerCase().includes(searchLower)
+        )) return true
+      } else if (typeof fieldValue === 'number') {
+        // For numbers, convert to string and check
+        if (fieldValue.toString().includes(searchLower)) return true
+      }
+    }
     
     return false
   }
 
-  // Check if a section has any visible fields
-  const hasVisibleFields = (fields: Array<{name: string, value: string | undefined}>) => {
+  // Check if a folder has any visible fields
+  const hasVisibleFields = (folderFields: Array<{key: string, label: string, type: string}>) => {
     if (!searchTerm) return true
-    return fields.some(field => filterFields(field.name, field.value))
+    return folderFields.some(field => {
+      const value = getFieldValue(field.key)
+      return filterFields(field.label, value)
+    })
   }
 
   // Auto-expand sections when they have matching fields
-  const shouldExpandContact = !isContactCollapsed || (searchTerm && hasVisibleFields([
-    { name: 'First Name', value: contact.firstName },
-    { name: 'Last Name', value: contact.lastName },
-    { name: 'Phone Number', value: contact.phone },
-    { name: 'Email', value: contact.email },
-    { name: 'Address', value: contact.address }
-  ]))
+  const contactFolder = fields.folders.find(folder => folder.name === 'Contact')
+  const additionalInfoFolder = fields.folders.find(folder => folder.name === 'Additional Info')
+  const driverPreferencesFolder = fields.folders.find(folder => folder.name === 'Head Car Driver Preferences')
+  
+  const shouldExpandContact = !isContactCollapsed || (searchTerm && contactFolder && hasVisibleFields(contactFolder.fields))
+  const shouldExpandAdditionalInfo = !isAdditionalInfoCollapsed || (searchTerm && additionalInfoFolder && hasVisibleFields(additionalInfoFolder.fields))
+  const shouldExpandDriverPreferences = !isDriverPreferencesCollapsed || (searchTerm && driverPreferencesFolder && hasVisibleFields(driverPreferencesFolder.fields))
 
-  const shouldExpandAdditionalInfo = !isAdditionalInfoCollapsed || (searchTerm && hasVisibleFields([
-    { name: 'Business Name', value: contact.businessName },
-    { name: 'Street Address', value: contact.streetAddress },
-    { name: 'City', value: contact.city },
-    { name: 'Country', value: contact.country }
-  ]))
+  // Render fields for a folder
+  const renderFolderFields = (folderFields: Array<{key: string, label: string, type: string}>) => {
+    return folderFields.map(field => {
+      const value = getFieldValue(field.key)
+      if (!filterFields(field.label, value)) return null
+      
+      // Format value for display based on data type
+      const formatValue = (val: any) => {
+        if (val === null || val === undefined) return ''
+        if (typeof val === 'string') return val
+        if (Array.isArray(val)) return val.join(', ')
+        if (typeof val === 'number') return val.toString()
+        return String(val)
+      }
+      
+      return (
+        <div key={field.key} className="field-row">
+          <div className="field-item">
+            <label>{field.label}</label>
+            <div className="field-value">{formatValue(value)}</div>
+          </div>
+        </div>
+      )
+    }).filter(Boolean)
+  }
 
   return (
     <div className={`contact-details-panel ${className}`}>
@@ -210,16 +250,10 @@ export default function ContactDetailsPanel({ contacts, className = '' }: Contac
       </div>
 
       {/* Contact Section */}
-      {(hasVisibleFields([
-        { name: 'First Name', value: contact.firstName },
-        { name: 'Last Name', value: contact.lastName },
-        { name: 'Phone Number', value: contact.phone },
-        { name: 'Email', value: contact.email },
-        { name: 'Address', value: contact.address }
-      ])) && (
+      {contactFolder && hasVisibleFields(contactFolder.fields) && (
       <div className="contact-section">
         <div className="section-header">
-          <h3>Contact</h3>
+          <h3>{contactFolder.name}</h3>
           <div className="section-actions">
             <button className="btn-add">+ Add</button>
             <button 
@@ -240,62 +274,17 @@ export default function ContactDetailsPanel({ contacts, className = '' }: Contac
         
         {shouldExpandContact && (
           <div className="section-fields">
-            {filterFields('First Name', contact.firstName) && (
-              <div className="field-row">
-                <div className="field-item">
-                  <label>First Name</label>
-                  <div className="field-value">{contact.firstName || ''}</div>
-                </div>
-                {filterFields('Last Name', contact.lastName) && (
-                  <div className="field-item">
-                    <label>Last Name</label>
-                    <div className="field-value">{contact.lastName || ''}</div>
-                  </div>
-                )}
-              </div>
-            )}
-            {filterFields('Phone Number', contact.phone) && (
-              <div className="field-row">
-                <div className="field-item">
-                  <label>Phone Number</label>
-                  <div className="field-value">
-                    <span className="flag-icon">🇺🇸</span>
-                    {contact.phone || ''}
-                  </div>
-                </div>
-              </div>
-            )}
-            {filterFields('Email', contact.email) && (
-              <div className="field-row">
-                <div className="field-item">
-                  <label>Email</label>
-                  <div className="field-value">{contact.email || ''}</div>
-                </div>
-              </div>
-            )}
-            {filterFields('Address', contact.address) && (
-              <div className="field-row">
-                <div className="field-item">
-                  <label>Address</label>
-                  <div className="field-value">{contact.address || ''}</div>
-                </div>
-              </div>
-            )}
+            {renderFolderFields(contactFolder.fields)}
           </div>
         )}
       </div>
       )}
 
       {/* Additional Info Section */}
-      {(hasVisibleFields([
-        { name: 'Business Name', value: contact.businessName },
-        { name: 'Street Address', value: contact.streetAddress },
-        { name: 'City', value: contact.city },
-        { name: 'Country', value: contact.country }
-      ])) && (
+      {additionalInfoFolder && hasVisibleFields(additionalInfoFolder.fields) && (
       <div className="contact-section">
         <div className="section-header">
-          <h3>Additional Info</h3>
+          <h3>{additionalInfoFolder.name}</h3>
           <div className="section-actions">
             <button 
               className="section-toggle"
@@ -315,51 +304,17 @@ export default function ContactDetailsPanel({ contacts, className = '' }: Contac
         
         {shouldExpandAdditionalInfo && (
           <div className="section-fields">
-            {filterFields('Business Name', contact.businessName) && (
-              <div className="field-row">
-                <div className="field-item">
-                  <label>Business Name</label>
-                  <div className="field-value">{contact.businessName || ''}</div>
-                </div>
-              </div>
-            )}
-            {filterFields('Street Address', contact.streetAddress) && (
-              <div className="field-row">
-                <div className="field-item">
-                  <label>Street Address</label>
-                  <div className="field-value">{contact.streetAddress || ''}</div>
-                </div>
-              </div>
-            )}
-            {filterFields('City', contact.city) && (
-              <div className="field-row">
-                <div className="field-item">
-                  <label>City</label>
-                  <div className="field-value">{contact.city || ''}</div>
-                </div>
-              </div>
-            )}
-            {filterFields('Country', contact.country) && (
-              <div className="field-row">
-                <div className="field-item">
-                  <label>Country</label>
-                  <div className="field-value">{contact.country || ''}</div>
-                </div>
-              </div>
-            )}
+            {renderFolderFields(additionalInfoFolder.fields)}
           </div>
         )}
       </div>
       )}
 
       {/* Head Car Driver Preferences Section */}
-      {(hasVisibleFields([
-        { name: 'Driver Preference', value: 'Professional Driver' },
-        { name: 'Vehicle Type', value: 'Sedan' }
-      ])) && (
+      {driverPreferencesFolder && hasVisibleFields(driverPreferencesFolder.fields) && (
       <div className="contact-section">
         <div className="section-header">
-          <h3>Head Car Driver Preferences</h3>
+          <h3>{driverPreferencesFolder.name}</h3>
           <div className="section-actions">
             <button 
               className="section-toggle"
@@ -377,20 +332,9 @@ export default function ContactDetailsPanel({ contacts, className = '' }: Contac
           </div>
         </div>
         
-        {!isDriverPreferencesCollapsed && (
+        {shouldExpandDriverPreferences && (
           <div className="section-fields">
-            {filterFields('Driver Preference', 'Professional Driver') && (
-              <div className="field-row">
-                <label className="field-label">Driver Preference</label>
-                <div className="field-value">Professional Driver</div>
-              </div>
-            )}
-            {filterFields('Vehicle Type', 'Sedan') && (
-              <div className="field-row">
-                <label className="field-label">Vehicle Type</label>
-                <div className="field-value">Sedan</div>
-              </div>
-            )}
+            {renderFolderFields(driverPreferencesFolder.fields)}
           </div>
         )}
       </div>
