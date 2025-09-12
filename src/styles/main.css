@@ -17,6 +17,29 @@ html, body {
   min-height: 100vh;
 }
 
+/* Touch-friendly improvements */
+button, .btn, input, textarea, select {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent horizontal scroll on mobile */
+body {
+  overflow-x: hidden;
+}
+
+/* Better text rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
@@ -197,6 +220,61 @@ p {
 .gap-2 { gap: 0.5rem; }
 .gap-4 { gap: 1rem; }
 .gap-8 { gap: 2rem; }
+
+/* Responsive Utilities */
+.hidden { display: none; }
+.block { display: block; }
+.inline { display: inline; }
+.inline-block { display: inline-block; }
+
+/* Mobile-first responsive utilities */
+@media (min-width: 768px) {
+  .md\:block { display: block; }
+  .md\:flex { display: flex; }
+  .md\:grid { display: grid; }
+  .md\:hidden { display: none; }
+}
+
+@media (min-width: 1024px) {
+  .lg\:block { display: block; }
+  .lg\:flex { display: flex; }
+  .lg\:grid { display: grid; }
+  .lg\:hidden { display: none; }
+}
+
+/* Spacing utilities */
+.p-0 { padding: 0; }
+.p-1 { padding: 0.25rem; }
+.p-2 { padding: 0.5rem; }
+.p-3 { padding: 0.75rem; }
+.p-4 { padding: 1rem; }
+.p-6 { padding: 1.5rem; }
+.p-8 { padding: 2rem; }
+
+.m-0 { margin: 0; }
+.m-1 { margin: 0.25rem; }
+.m-2 { margin: 0.5rem; }
+.m-3 { margin: 0.75rem; }
+.m-4 { margin: 1rem; }
+.m-6 { margin: 1.5rem; }
+.m-8 { margin: 2rem; }
+
+/* Width utilities */
+.w-full { width: 100%; }
+.w-auto { width: auto; }
+.w-fit { width: fit-content; }
+
+/* Height utilities */
+.h-full { height: 100%; }
+.h-auto { height: auto; }
+.h-screen { height: 100vh; }
+
+/* Overflow utilities */
+.overflow-hidden { overflow: hidden; }
+.overflow-auto { overflow: auto; }
+.overflow-scroll { overflow: scroll; }
+.overflow-x-auto { overflow-x: auto; }
+.overflow-y-auto { overflow-y: auto; }
 
 /* Buttons */
 .btn {
@@ -820,7 +898,9 @@ p {
 
 /* Contact Sections */
 .contact-sections {
-  space-y: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .contact-section {
@@ -890,7 +970,9 @@ p {
 }
 
 .section-fields {
-  space-y: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .field-row {
@@ -1195,6 +1277,412 @@ p {
 
 .dropdown-item:only-child {
   border-radius: 0.5rem;
+}
+
+/* Responsive Design */
+/* Large screens (1200px and up) */
+@media (min-width: 1200px) {
+  .dashboard-columns {
+    grid-template-columns: 400px 1fr 400px auto;
+    gap: 1.5rem;
+  }
+  
+  .contact-details-panel {
+    min-width: 350px;
+  }
+  
+  .conversations-panel {
+    min-width: 350px;
+  }
+}
+
+/* Medium screens (768px to 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .dashboard-columns {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    height: auto;
+    min-height: 95vh;
+  }
+  
+  .contact-details-panel {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  
+  .conversations-panel {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  
+  .notes-panel {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    height: 300px;
+  }
+  
+  .sidebar-icons {
+    display: none;
+  }
+  
+  .contact-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .contact-main-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .contact-profile {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .contact-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+/* Small screens (767px and below) */
+@media (max-width: 767px) {
+  .dashboard-columns {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 1rem;
+    height: auto;
+    min-height: 100vh;
+    padding: 0.5rem;
+  }
+  
+  .contact-details-panel {
+    grid-column: 1;
+    grid-row: 1;
+    order: 1;
+  }
+  
+  .conversations-panel {
+    grid-column: 1;
+    grid-row: 2;
+    order: 2;
+  }
+  
+  .notes-panel {
+    grid-column: 1;
+    grid-row: 3;
+    order: 3;
+    height: 250px;
+  }
+  
+  .sidebar-icons {
+    display: none;
+  }
+  
+  /* Contact Details Panel Mobile */
+  .contact-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .contact-main-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .contact-profile {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .contact-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  
+  .contact-owner-followers {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .owner-section, .followers-section {
+    width: 100%;
+  }
+  
+  .contact-tags {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .contact-tabs {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .tab {
+    width: 100%;
+    text-align: left;
+  }
+  
+  .search-input {
+    width: 100%;
+  }
+  
+  .field-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .field-item {
+    width: 100%;
+  }
+  
+  /* Conversations Panel Mobile */
+  .conversation-thread {
+    margin-bottom: 1rem;
+  }
+  
+  .thread-header h4 {
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+  
+  .message-email {
+    padding: 0.75rem;
+  }
+  
+  .message-whatsapp-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .message-whatsapp-bubble {
+    max-width: 100%;
+    margin-left: 0;
+  }
+  
+  .message-whatsapp-bubble::before {
+    display: none;
+  }
+  
+  .whatsapp-avatar {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Message Input Mobile */
+  .input-container {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+  
+  .input-left-icons {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .input-divider {
+    display: none;
+  }
+  
+  .input-actions {
+    width: 100%;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+  
+  /* Typography Mobile */
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+  h4 { font-size: 1rem; }
+  
+  /* Panel Headers Mobile */
+  .panel-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+  
+  .panel-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  /* Dropdown Mobile */
+  .dropdown-menu {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 1rem 1rem 0 0;
+    margin-top: 0;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+  
+  .dropdown-item {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}
+
+/* Extra small screens (480px and below) */
+@media (max-width: 480px) {
+  .dashboard-columns {
+    padding: 0.25rem;
+    gap: 0.5rem;
+  }
+  
+  .column {
+    border-radius: 0.5rem;
+  }
+  
+  .contact-header {
+    padding: 0.75rem;
+  }
+  
+  .contact-avatar-container {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .contact-avatar-image {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .contact-avatar-fallback {
+    width: 48px;
+    height: 48px;
+    font-size: 0.875rem;
+  }
+  
+  .contact-name {
+    font-size: 1rem;
+  }
+  
+  .section-header {
+    padding: 0.75rem;
+  }
+  
+  .section-fields {
+    padding: 0.75rem;
+  }
+  
+  .field-item {
+    padding: 0.5rem 0;
+  }
+  
+  .field-item label {
+    font-size: 0.75rem;
+  }
+  
+  .field-value {
+    font-size: 0.875rem;
+  }
+  
+  .btn-add-tag {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .message-input {
+    padding: 0.5rem;
+  }
+  
+  .input-container {
+    padding: 0.5rem;
+  }
+  
+  .btn-purple, .btn-send {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .btn-purple svg, .btn-send svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-height: 500px) and (orientation: landscape) {
+  .dashboard-columns {
+    height: 100vh;
+    padding: 0.5rem;
+  }
+  
+  .column {
+    max-height: calc(100vh - 1rem);
+  }
+  
+  .notes-panel {
+    height: 200px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .contact-avatar-image,
+  .avatar-image {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Print styles */
+@media print {
+  .dashboard-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    height: auto;
+  }
+  
+  .sidebar-icons {
+    display: none;
+  }
+  
+  .message-input {
+    display: none;
+  }
+  
+  .typing-indicator {
+    display: none;
+  }
+  
+  .btn-add-tag,
+  .btn-purple,
+  .btn-send,
+  .btn-reply,
+  .btn-track {
+    display: none;
+  }
 }
 
 .message-footer {

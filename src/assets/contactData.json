@@ -8,7 +8,7 @@
   "city": "New York",
   "state": "NY",
   "zipCode": "10001",
-  "company": "Acme Corp",
+  "company": "Acme Corporation",
   "jobTitle": "Software Engineer",
   "tags": ["VIP", "Enterprise", "Technical"]
 }
