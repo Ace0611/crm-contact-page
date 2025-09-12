@@ -3,6 +3,7 @@
 ## 🚀 Deployment
 
 ### Quick Deploy
+
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/ace0611/crm-contact-page)
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ace0611/crm-contact-page)
 
@@ -11,6 +12,7 @@ A modern, JSON-driven contact management application built with React, TypeScrip
 ## 🚀 How to Run the App
 
 ### Prerequisites
+
 - **Node.js**: Version 20.19+ or 22.12+
 - **npm**: Version 9+ (comes with Node.js)
 - **Modern Browser**: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
@@ -60,18 +62,21 @@ npm run format:check # Check code formatting
 ## 🛠️ Tech Stack
 
 ### Core Technologies
+
 - **React 19** - Latest React with modern hooks and concurrent features
 - **TypeScript 5.8** - Type-safe JavaScript with strict type checking
 - **Vite 7.1** - Lightning-fast build tool and development server
 - **Vanilla CSS** - Custom CSS with modern features (Grid, Flexbox, CSS Variables)
 
 ### Data Management & State
+
 - **React Query (TanStack Query) 5.87** - Server state management with caching
 - **Zod 4.1** - Runtime type validation and schema inference
 - **LocalForage 1.10** - IndexedDB persistence for offline support
 - **React Query Persist Client** - Automatic cache persistence
 
 ### Code Quality & Development
+
 - **ESLint 9.33** - Code linting with TypeScript and React rules
 - **Prettier 3.6** - Automated code formatting
 - **Husky 9.1** - Git hooks for pre-commit checks
@@ -79,11 +84,13 @@ npm run format:check # Check code formatting
 - **TypeScript ESLint** - TypeScript-specific linting rules
 
 ### PWA & Offline Capabilities
+
 - **Vite PWA Plugin 1.0** - Progressive Web App configuration
 - **Workbox 7.3** - Service worker for advanced caching strategies
 - **Service Worker** - Custom offline functionality and background sync
 
 ### Architecture Patterns
+
 - **Atomic Design** - Component organization (atoms/molecules/organisms)
 - **JSON-Driven UI** - Dynamic rendering from configuration files
 - **Custom Hooks** - Reusable logic abstraction
@@ -160,9 +167,11 @@ crm-contact-page/
 ## 📋 JSON Configuration Files
 
 ### 1. Contact Data (`contactData.json`)
+
 **Purpose**: Stores the actual contact information as an array of contact objects.
 
 **Structure**:
+
 ```json
 [
   {
@@ -185,16 +194,19 @@ crm-contact-page/
 ]
 ```
 
-**Usage**: 
+**Usage**:
+
 - Fetched by `useContactsData()` hook
 - Rendered dynamically in `ContactDetailsPanel`
 - Supports pagination between multiple contacts
 - All field labels come from `contactFields.json`
 
 ### 2. Contact Fields (`contactFields.json`)
+
 **Purpose**: Defines the structure, labels, and types for all contact fields.
 
 **Structure**:
+
 ```json
 {
   "folders": [
@@ -228,6 +240,7 @@ crm-contact-page/
 ```
 
 **Usage**:
+
 - Fetched by `useContactFields()` hook
 - Used to dynamically render field labels (no hardcoded labels)
 - Defines field types for validation and rendering
@@ -235,9 +248,11 @@ crm-contact-page/
 - Supports search functionality across all fields
 
 ### 3. Conversations Data (`conversationsData.json`)
+
 **Purpose**: Stores contact-specific conversation threads and messages.
 
 **Structure**:
+
 ```json
 {
   "conversations": {
@@ -283,6 +298,7 @@ crm-contact-page/
 ```
 
 **Usage**:
+
 - Fetched by `useContactConversations(contactId)` hook
 - Contact-specific conversations (each contact has their own conversations)
 - Supports different message types (email, WhatsApp)
@@ -290,9 +306,11 @@ crm-contact-page/
 - Rendered by `MessageRenderer` component
 
 ### 4. Notes Data (`notesData.json`)
+
 **Purpose**: Stores notes associated with contacts.
 
 **Structure**:
+
 ```json
 {
   "notes": [
@@ -313,15 +331,18 @@ crm-contact-page/
 ```
 
 **Usage**:
+
 - Fetched by `useNotesData()` hook
 - Rendered in `NotesPanel` component
 - Supports adding new notes
 - Timestamp and author information included
 
 ### 5. Layout Configuration (`layout.json` & `layout-alt.json`)
+
 **Purpose**: Defines the layout structure for the contact details panel.
 
 **Structure**:
+
 ```json
 {
   "title": "Contact Details",
@@ -343,6 +364,7 @@ crm-contact-page/
 ```
 
 **Usage**:
+
 - Fetched by `useLayout()` hook
 - Controls how fields are organized and displayed
 - Supports dynamic layout switching
@@ -435,6 +457,7 @@ crm-contact-page/
 ## 🔧 Development Notes
 
 ### Key Features Implemented
+
 - ✅ JSON-driven UI rendering
 - ✅ Contact-specific conversations
 - ✅ Dynamic field rendering from configuration
@@ -445,6 +468,7 @@ crm-contact-page/
 - ✅ Comprehensive CSS with hover states
 
 ### Architecture Decisions
+
 - **Atomic Design**: Chosen for component organization and reusability
 - **JSON-Driven UI**: Enables easy customization without code changes
 - **React Query**: Provides excellent caching and data synchronization
@@ -452,6 +476,7 @@ crm-contact-page/
 - **TypeScript**: Ensures type safety throughout the application
 
 ### Future Enhancements
+
 - Add comprehensive test suite
 - Implement error boundaries
 - Add accessibility features
@@ -461,6 +486,7 @@ crm-contact-page/
 - Add data export/import functionality
 
 ### Build for Production
+
 ```bash
 # Standard build
 npm run build
@@ -473,11 +499,13 @@ npm run build:vercel
 ```
 
 ### Preview Production Build
+
 ```bash
 npm run preview
 ```
 
 ### Deployment Commands
+
 ```bash
 # Deploy to GitHub Pages
 npm run deploy:github
@@ -487,6 +515,7 @@ npm run deploy:vercel
 ```
 
 ### Deployment Options
+
 - **Vercel**: One-click deploy with automatic CI/CD
 - **Netlify**: Automatic deployments with preview branches
 - **GitHub Pages**: Free hosting with GitHub Actions
@@ -494,11 +523,17 @@ npm run deploy:vercel
 - **CDN**: Use CloudFlare or AWS CloudFront for global distribution
 
 ### Detailed Deployment Guide
+
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for comprehensive deployment instructions for all platforms.
+
+### GitHub Pages Setup
+
+If you're having issues with GitHub Pages deployment, see [GITHUB_PAGES_SETUP.md](./GITHUB_PAGES_SETUP.md) for step-by-step setup instructions.
 
 ## 📞 Support
 
 For issues or questions:
+
 1. Check the [Known Issues](#-known-issues) section above
 2. Review the console logs for debugging information
 3. Check browser developer tools for errors
