@@ -1,0 +1,14 @@
+{
+  "id": "c_001",
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "phone": "+1-555-0123",
+  "street": "123 Main Street",
+  "city": "New York",
+  "state": "NY",
+  "zipCode": "10001",
+  "company": "Acme Corp",
+  "jobTitle": "Software Engineer",
+  "tags": ["VIP", "Enterprise", "Technical"]
+}

@@ -1,0 +1,13 @@
+{
+  "firstName": { "label": "First Name", "type": "text", "required": true },
+  "lastName": { "label": "Last Name", "type": "text", "required": true },
+  "email": { "label": "Email", "type": "email", "required": true },
+  "phone": { "label": "Phone", "type": "tel", "required": false },
+  "street": { "label": "Street Address", "type": "text", "required": false },
+  "city": { "label": "City", "type": "text", "required": false },
+  "state": { "label": "State", "type": "text", "required": false },
+  "zipCode": { "label": "ZIP Code", "type": "text", "required": false },
+  "company": { "label": "Company", "type": "text", "required": false },
+  "jobTitle": { "label": "Job Title", "type": "text", "required": false },
+  "tags": { "label": "Tags", "type": "chips", "required": false }
+}

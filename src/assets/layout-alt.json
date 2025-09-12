@@ -1,0 +1,29 @@
+{
+  "title": "Contact Overview",
+  "sections": [
+    {
+      "id": "main",
+      "label": "Main Information",
+      "columns": 1,
+      "fields": ["firstName", "lastName", "email"]
+    },
+    {
+      "id": "contact",
+      "label": "Contact Details",
+      "columns": 2,
+      "fields": ["phone", "company", "jobTitle", "street"]
+    },
+    {
+      "id": "location",
+      "label": "Location",
+      "columns": 3,
+      "fields": ["city", "state", "zipCode"]
+    },
+    {
+      "id": "additional",
+      "label": "Additional Info",
+      "columns": 4,
+      "fields": ["tags"]
+    }
+  ]
+}

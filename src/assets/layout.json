@@ -1,0 +1,23 @@
+{
+  "title": "Contact Details",
+  "sections": [
+    {
+      "id": "personal",
+      "label": "Personal Information",
+      "columns": 2,
+      "fields": ["firstName", "lastName", "email", "phone"]
+    },
+    {
+      "id": "address",
+      "label": "Address",
+      "columns": 2,
+      "fields": ["street", "city", "state", "zipCode"]
+    },
+    {
+      "id": "professional",
+      "label": "Professional",
+      "columns": 2,
+      "fields": ["company", "jobTitle", "tags"]
+    }
+  ]
+}
