@@ -4,7 +4,7 @@
 
 ### Quick Deploy
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/ace0611/crm-contact-page)
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/yourusername/crm-contact-page)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ace0611/crm-contact-page)
 
 A modern, JSON-driven contact management application built with React, TypeScript, and vanilla CSS. This project demonstrates advanced web development practices including PWA capabilities, offline functionality, atomic design patterns, and dynamic data-driven UI rendering.
 

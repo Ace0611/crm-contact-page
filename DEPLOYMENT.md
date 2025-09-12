@@ -5,7 +5,7 @@ This guide covers deploying the CRM Contact Page to various platforms.
 ## 🚀 Quick Deploy Options
 
 ### 1. Vercel (Recommended)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/crm-contact-page)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/ace0611/crm-contact-page)
 
 1. **One-Click Deploy**: Click the button above
 2. **Manual Deploy**:
@@ -15,7 +15,7 @@ This guide covers deploying the CRM Contact Page to various platforms.
    ```
 
 ### 2. Netlify
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/yourusername/crm-contact-page)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ace0611/crm-contact-page)
 
 1. **One-Click Deploy**: Click the button above
 2. **Manual Deploy**:
@@ -64,7 +64,7 @@ vercel --prod
 **Using GitHub Actions (Recommended):**
 1. Push code to main branch
 2. GitHub Actions will automatically build and deploy
-3. Site will be available at: `https://yourusername.github.io/crm-contact-page/`
+3. Site will be available at: `https://ace0611.github.io/crm-contact-page/`
 
 **Manual Deployment:**
 ```bash
