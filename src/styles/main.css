@@ -824,7 +824,12 @@ p {
 }
 
 .contact-section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
 .contact-section.collapsed .section-fields {
@@ -835,7 +840,9 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f3f4f6;
 }
 
 .section-header h3 {
@@ -858,38 +865,68 @@ p {
   cursor: pointer;
 }
 
+.collapse-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collapse-btn:hover {
+  background: #f3f4f6;
+}
+
+.transition-transform {
+  transition: transform 0.2s ease;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
 .section-fields {
   space-y: 0.75rem;
 }
 
-.field-item {
+.field-row {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #f3f4f6;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
 }
 
-.field-item:last-child {
-  border-bottom: none;
+.field-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding: 0.5rem 0;
+  flex: 1;
 }
 
 .field-item label {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: #6b7280;
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
 }
 
 .field-value {
   font-size: 0.875rem;
   color: #111827;
-  text-align: right;
-  max-width: 60%;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
 .flag-icon {
-  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  font-size: 0.875rem;
 }
+
 
 /* Conversations Panel */
 .conversations-panel {
@@ -897,6 +934,10 @@ p {
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.conversations-content.collapsed {
+  display: none;
 }
 
 .conversation-thread {

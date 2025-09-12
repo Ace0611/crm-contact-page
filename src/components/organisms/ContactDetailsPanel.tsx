@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import type { Contact, FieldDefinitions } from '../../types'
 import Avatar from '../atoms/Avatar'
 
@@ -8,6 +9,9 @@ interface ContactDetailsPanelProps {
 }
 
 export default function ContactDetailsPanel({ contact, fields, className = '' }: ContactDetailsPanelProps) {
+  const [isContactCollapsed, setIsContactCollapsed] = useState(false)
+  const [isAdditionalInfoCollapsed, setIsAdditionalInfoCollapsed] = useState(false)
+  const [isDriverPreferencesCollapsed, setIsDriverPreferencesCollapsed] = useState(true) // Start collapsed as per original design
   return (
     <div className={`contact-details-panel ${className}`}>
       {/* Panel Header */}
@@ -133,30 +137,43 @@ export default function ContactDetailsPanel({ contact, fields, className = '' }:
 
       {/* Contact Information Sections */}
       <div className="contact-sections">
-        <div className="contact-section">
+        <div className={`contact-section ${isContactCollapsed ? 'collapsed' : ''}`}>
           <div className="section-header">
             <h3>Contact</h3>
             <div className="section-actions">
               <button className="btn-add">+ Add</button>
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+              <button 
+                className="collapse-btn"
+                onClick={() => setIsContactCollapsed(!isContactCollapsed)}
+                aria-label={isContactCollapsed ? 'Expand Contact' : 'Collapse Contact'}
+              >
+                <svg 
+                  className={`w-4 h-4 transition-transform ${isContactCollapsed ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
             </div>
           </div>
           <div className="section-fields">
-            <div className="field-item">
-              <label>First Name</label>
-              <span className="field-value">{contact.firstName}</span>
-            </div>
-            <div className="field-item">
-              <label>Last Name</label>
-              <span className="field-value">{contact.lastName}</span>
+            <div className="field-row">
+              <div className="field-item">
+                <label>First Name</label>
+                <span className="field-value">{contact.firstName}</span>
+              </div>
+              <div className="field-item">
+                <label>Last Name</label>
+                <span className="field-value">{contact.lastName}</span>
+              </div>
             </div>
             <div className="field-item">
               <label>Phone Number</label>
               <span className="field-value">
-                {contact.phone}
                 <span className="flag-icon">🇺🇸</span>
+                {contact.phone}
               </span>
             </div>
             <div className="field-item">
@@ -172,12 +189,25 @@ export default function ContactDetailsPanel({ contact, fields, className = '' }:
           </div>
         </div>
 
-        <div className="contact-section">
+        <div className={`contact-section ${isAdditionalInfoCollapsed ? 'collapsed' : ''}`}>
           <div className="section-header">
             <h3>Additional Info</h3>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
+            <div className="section-actions">
+              <button 
+                className="collapse-btn"
+                onClick={() => setIsAdditionalInfoCollapsed(!isAdditionalInfoCollapsed)}
+                aria-label={isAdditionalInfoCollapsed ? 'Expand Additional Info' : 'Collapse Additional Info'}
+              >
+                <svg 
+                  className={`w-4 h-4 transition-transform ${isAdditionalInfoCollapsed ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
           </div>
           <div className="section-fields">
             <div className="field-item">
@@ -199,12 +229,31 @@ export default function ContactDetailsPanel({ contact, fields, className = '' }:
           </div>
         </div>
 
-        <div className="contact-section collapsed">
+        <div className={`contact-section ${isDriverPreferencesCollapsed ? 'collapsed' : ''}`}>
           <div className="section-header">
             <h3>Head Car Driver Preferences</h3>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
+            <div className="section-actions">
+              <button 
+                className="collapse-btn"
+                onClick={() => setIsDriverPreferencesCollapsed(!isDriverPreferencesCollapsed)}
+                aria-label={isDriverPreferencesCollapsed ? 'Expand Driver Preferences' : 'Collapse Driver Preferences'}
+              >
+                <svg 
+                  className={`w-4 h-4 transition-transform ${isDriverPreferencesCollapsed ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div className="section-fields">
+            <div className="field-item">
+              <label>Driver Preferences</label>
+              <span className="field-value">No preferences set</span>
+            </div>
           </div>
         </div>
       </div>

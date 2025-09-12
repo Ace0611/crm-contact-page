@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import Avatar from '../atoms/Avatar'
 
 interface ConversationsPanelProps {
@@ -5,6 +6,7 @@ interface ConversationsPanelProps {
 }
 
 export default function ConversationsPanel({ className = '' }: ConversationsPanelProps) {
+  const [isConversationsCollapsed, setIsConversationsCollapsed] = useState(false)
   return (
     <div className={`conversations-panel ${className}`}>
       <div className="panel-header">
@@ -14,12 +16,24 @@ export default function ConversationsPanel({ className = '' }: ConversationsPane
           </svg>
           <h3>Conversations</h3>
         </div>
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        <button 
+          className="collapse-btn"
+          onClick={() => setIsConversationsCollapsed(!isConversationsCollapsed)}
+          aria-label={isConversationsCollapsed ? 'Expand Conversations' : 'Collapse Conversations'}
+        >
+          <svg 
+            className={`w-4 h-4 transition-transform ${isConversationsCollapsed ? 'rotate-180' : ''}`} 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
       </div>
 
-      <div className="conversations-list">
+      <div className={`conversations-content ${isConversationsCollapsed ? 'collapsed' : ''}`}>
+        <div className="conversations-list">
         {/* Conversation Thread 1 */}
         <div className="conversation-thread">
           <div className="thread-header">
@@ -183,6 +197,7 @@ export default function ConversationsPanel({ className = '' }: ConversationsPane
             </button>
           </div>
         </div>
+      </div>
       </div>
     </div>
   )
