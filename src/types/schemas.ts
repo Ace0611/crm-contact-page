@@ -55,6 +55,9 @@ export const ContactSchema = z.object({
   tags: z.array(z.string()).optional(),
 })
 
+// Contact Data Schema (array of contacts)
+export const ContactDataSchema = z.array(ContactSchema)
+
 // Message Action Schema
 export const MessageActionSchema = z.object({
   type: z.enum(['star', 'reply', 'more']),
@@ -125,6 +128,7 @@ export type FieldDefinitions = z.infer<typeof FieldDefinitionsSchema>
 export type LayoutSection = z.infer<typeof LayoutSectionSchema>
 export type Layout = z.infer<typeof LayoutSchema>
 export type Contact = z.infer<typeof ContactSchema>
+export type ContactData = z.infer<typeof ContactDataSchema>
 export type MessageAction = z.infer<typeof MessageActionSchema>
 export type MessageContent = z.infer<typeof MessageContentSchema>
 export type MessageSender = z.infer<typeof MessageSenderSchema>

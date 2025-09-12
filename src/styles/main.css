@@ -361,7 +361,6 @@ p {
 
 .link:hover {
   color: #1d4ed8;
-  text-decoration: underline;
 }
 
 /* Chips/Tags */
@@ -640,6 +639,16 @@ p {
 .btn-icon:hover {
   background-color: #f3f4f6;
   color: #374151;
+}
+
+.btn-icon:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-icon:disabled:hover {
+  background-color: transparent;
+  color: #6b7280;
 }
 
 /* Contact Details Panel */
@@ -1347,9 +1356,9 @@ p {
 
 .cta-link {
   color: #2563eb;
-  text-decoration: underline;
   font-size: 0.875rem;
   font-weight: 500;
+  text-decoration: none;
 }
 
 .message-footer {
@@ -1920,7 +1929,6 @@ p {
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
-  text-decoration: underline;
   margin-top: 0.5rem;
 }
 

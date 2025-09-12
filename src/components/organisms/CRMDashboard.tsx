@@ -7,23 +7,23 @@ import Footer from './Footer'
 import SidebarIcons from './SidebarIcons'
 
 interface CRMDashboardProps {
-  contact: Contact
+  contacts: Contact[]
   fields: FieldDefinitions
   className?: string
 }
 
-export default function CRMDashboard({ contact, fields, className = '' }: CRMDashboardProps) {
-  const [currentContactIndex, setCurrentContactIndex] = useState(1)
-  const totalContacts = 356
+export default function CRMDashboard({ contacts, fields, className = '' }: CRMDashboardProps) {
+  const [currentContactIndex, setCurrentContactIndex] = useState(0)
+  const totalContacts = contacts.length
 
   const handlePrevious = () => {
-    if (currentContactIndex > 1) {
+    if (currentContactIndex > 0) {
       setCurrentContactIndex(currentContactIndex - 1)
     }
   }
 
   const handleNext = () => {
-    if (currentContactIndex < totalContacts) {
+    if (currentContactIndex < totalContacts - 1) {
       setCurrentContactIndex(currentContactIndex + 1)
     }
   }
@@ -41,7 +41,7 @@ export default function CRMDashboard({ contact, fields, className = '' }: CRMDas
       <div className="dashboard-content">
         <div className="dashboard-columns">
           <div className="column column-contact">
-            <ContactDetailsPanel contact={contact} fields={fields} />
+            <ContactDetailsPanel contacts={contacts} fields={fields} />
           </div>
           
           <div className="column column-conversations">

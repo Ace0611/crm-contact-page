@@ -1,21 +1,19 @@
-import { useContactData, useLayout, useContactFields } from '../../hooks'
+import { useContactsData, useLayout, useContactFields } from '../../hooks'
 import CRMDashboard from '../../components/organisms/CRMDashboard'
 
 interface ContactPageContainerProps {
-  contactId?: string
   className?: string
 }
 
 export default function ContactPageContainer({
-  contactId = 'c_001',
   className = ''
 }: ContactPageContainerProps) {
-  const { contact, isLoading: contactLoading, error: contactError } = useContactData(contactId)
+  const { contacts, isLoading: contactsLoading, error: contactsError } = useContactsData()
   const { layout, isLoading: layoutLoading, error: layoutError } = useLayout()
   const { fields, isLoading: fieldsLoading, error: fieldsError } = useContactFields()
 
   // Loading state
-  if (contactLoading || layoutLoading || fieldsLoading) {
+  if (contactsLoading || layoutLoading || fieldsLoading) {
     return (
       <div className="loading-state">
         <div className="loading-content">
@@ -27,8 +25,8 @@ export default function ContactPageContainer({
   }
 
   // Error state
-  if (contactError || layoutError || fieldsError) {
-    const errorMessage = String(contactError || layoutError || fieldsError || 'Unknown error')
+  if (contactsError || layoutError || fieldsError) {
+    const errorMessage = String(contactsError || layoutError || fieldsError || 'Unknown error')
     return (
       <div className="error-state">
         <div className="error-content">
@@ -47,7 +45,7 @@ export default function ContactPageContainer({
   }
 
   // No data state
-  if (!contact || !layout || !fields) {
+  if (!contacts || !layout || !fields || contacts.length === 0) {
     return (
       <div className="error-state">
         <div className="error-content">
@@ -62,7 +60,7 @@ export default function ContactPageContainer({
   return (
     <div className={className}>
       <CRMDashboard
-        contact={contact}
+        contacts={contacts}
         fields={fields}
       />
     </div>

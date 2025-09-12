@@ -8,6 +8,7 @@ export type {
   LayoutSection,
   Layout,
   Contact,
+  ContactData,
   MessageAction,
   MessageContent,
   MessageSender,

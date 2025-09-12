@@ -3,24 +3,48 @@ import type { Contact, FieldDefinitions } from '../../types'
 import Avatar from '../atoms/Avatar'
 
 interface ContactDetailsPanelProps {
-  contact: Contact
+  contacts: Contact[]
   fields: FieldDefinitions
   className?: string
 }
 
-export default function ContactDetailsPanel({ contact, className = '' }: ContactDetailsPanelProps) {
+export default function ContactDetailsPanel({ contacts, className = '' }: ContactDetailsPanelProps) {
   const [isContactCollapsed, setIsContactCollapsed] = useState(false)
   const [isAdditionalInfoCollapsed, setIsAdditionalInfoCollapsed] = useState(false)
   const [isDriverPreferencesCollapsed, setIsDriverPreferencesCollapsed] = useState(true) // Start collapsed as per original design
   const [searchTerm, setSearchTerm] = useState('')
+  const [currentContactIndex, setCurrentContactIndex] = useState(0)
+
+  // Get current contact
+  const contact = contacts[currentContactIndex]
+  const totalContacts = contacts.length
+
+  // Pagination handlers
+  const goToPreviousContact = () => {
+    if (currentContactIndex > 0) {
+      setCurrentContactIndex(currentContactIndex - 1)
+    }
+  }
+
+  const goToNextContact = () => {
+    if (currentContactIndex < totalContacts - 1) {
+      setCurrentContactIndex(currentContactIndex + 1)
+    }
+  }
 
   // Filter fields based on search term
   const filterFields = (fieldName: string, fieldValue: string | undefined) => {
     if (!searchTerm) return true
-    if (!fieldValue) return false
     const searchLower = searchTerm.toLowerCase()
-    return fieldName.toLowerCase().includes(searchLower) || 
-           fieldValue.toLowerCase().includes(searchLower)
+    const fieldNameLower = fieldName.toLowerCase()
+    
+    // Always show if field name matches search term
+    if (fieldNameLower.includes(searchLower)) return true
+    
+    // Show if field value matches search term (only if value exists)
+    if (fieldValue && fieldValue.toLowerCase().includes(searchLower)) return true
+    
+    return false
   }
 
   // Check if a section has any visible fields
@@ -29,20 +53,44 @@ export default function ContactDetailsPanel({ contact, className = '' }: Contact
     return fields.some(field => filterFields(field.name, field.value))
   }
 
+  // Auto-expand sections when they have matching fields
+  const shouldExpandContact = !isContactCollapsed || (searchTerm && hasVisibleFields([
+    { name: 'First Name', value: contact.firstName },
+    { name: 'Last Name', value: contact.lastName },
+    { name: 'Phone Number', value: contact.phone },
+    { name: 'Email', value: contact.email },
+    { name: 'Address', value: contact.address }
+  ]))
+
+  const shouldExpandAdditionalInfo = !isAdditionalInfoCollapsed || (searchTerm && hasVisibleFields([
+    { name: 'Business Name', value: contact.businessName },
+    { name: 'Street Address', value: contact.streetAddress },
+    { name: 'City', value: contact.city },
+    { name: 'Country', value: contact.country }
+  ]))
+
   return (
     <div className={`contact-details-panel ${className}`}>
       {/* Panel Header */}
       <div className="panel-header">
         <h3>Contact Details</h3>
         <div className="panel-actions">
-          <span className="contact-pagination">1 of 356</span>
+          <span className="contact-pagination">{currentContactIndex + 1} of {totalContacts}</span>
           <div className="header-nav">
-            <button className="btn-icon">
+            <button 
+              className="btn-icon" 
+              onClick={goToPreviousContact}
+              disabled={currentContactIndex === 0}
+            >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <button className="btn-icon">
+            <button 
+              className="btn-icon" 
+              onClick={goToNextContact}
+              disabled={currentContactIndex === totalContacts - 1}
+            >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
@@ -190,7 +238,7 @@ export default function ContactDetailsPanel({ contact, className = '' }: Contact
           </div>
         </div>
         
-        {!isContactCollapsed && (
+        {shouldExpandContact && (
           <div className="section-fields">
             {filterFields('First Name', contact.firstName) && (
               <div className="field-row">
@@ -265,7 +313,7 @@ export default function ContactDetailsPanel({ contact, className = '' }: Contact
           </div>
         </div>
         
-        {!isAdditionalInfoCollapsed && (
+        {shouldExpandAdditionalInfo && (
           <div className="section-fields">
             {filterFields('Business Name', contact.businessName) && (
               <div className="field-row">
