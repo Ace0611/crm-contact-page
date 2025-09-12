@@ -775,7 +775,7 @@ p {
 
 /* Contact Search */
 .contact-search {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 
@@ -1064,12 +1064,71 @@ p {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
 }
 
-.message-whatsapp {
-  background: #f0f9ff;
-  border-radius: 0.5rem;
-  padding: 0.75rem;
+/* WhatsApp Message Layout */
+.message-whatsapp-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
   margin-bottom: 1rem;
+}
+
+.whatsapp-avatar {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.whatsapp-indicator {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  background: #25d366;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: 2px solid white;
+}
+
+.message-whatsapp-bubble {
+  background: #f0f9ff;
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+  position: relative;
+  max-width: 70%;
   border-left: 3px solid #25d366;
+}
+
+.message-whatsapp-bubble::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 20px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #f0f9ff;
+}
+
+.whatsapp-sender {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.whatsapp-content {
+  color: #1f2937;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.whatsapp-time {
+  color: #6b7280;
+  font-size: 0.75rem;
 }
 
 .message-footer {
@@ -1095,25 +1154,6 @@ p {
   background: #2563eb;
 }
 
-.avatar-container {
-  position: relative;
-  display: inline-block;
-}
-
-.whatsapp-indicator {
-  position: absolute;
-  bottom: -2px;
-  right: -2px;
-  background: #25d366;
-  border-radius: 50%;
-  width: 1rem;
-  height: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  border: 2px solid white;
-}
 
 .panel-header {
   display: flex;
@@ -1531,7 +1571,7 @@ p {
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  color: white;
+  border: 1px solid #e5e7eb;
 }
 
 .avatar-sm { width: 1rem; height: 1rem; font-size: 0.75rem; }
