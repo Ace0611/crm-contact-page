@@ -83,28 +83,31 @@ export default function ContactDetailsPanel({ contact, fields, className = '' }:
         </div>
         
         <div className="contact-tags">
-          <span className="tag tag-blue">
-            Shared Contact
-            <button className="tag-remove">
+          <label className="tag-label">Tags</label>
+          <div className="tag-container">
+            <span className="tag tag-blue">
+              Shared Contact
+              <button className="tag-remove">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </span>
+            <span className="tag tag-blue">
+              VIP
+              <button className="tag-remove">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </span>
+            <span className="tag tag-blue">+15</span>
+            <button className="btn-add-tag">
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
               </svg>
             </button>
-          </span>
-          <span className="tag tag-green">
-            VIP
-            <button className="tag-remove">
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </span>
-          <span className="tag tag-gray">+15</span>
-          <button className="btn-add-tag">
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-          </button>
+          </div>
         </div>
       </div>
 
