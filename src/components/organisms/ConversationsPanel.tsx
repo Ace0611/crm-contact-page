@@ -14,6 +14,7 @@ export default function ConversationsPanel({ className = '' }: ConversationsPane
   const [messageText, setMessageText] = useState('')
   const [showDropdown, setShowDropdown] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const { data: conversationsData, isLoading, error } = useConversationsData()
 
   // Close dropdown when clicking outside
@@ -30,12 +31,30 @@ export default function ConversationsPanel({ className = '' }: ConversationsPane
     }
   }, [])
 
+  // Cleanup typing timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current)
+      }
+    }
+  }, [])
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setMessageText(value)
     
+    // Clear existing timeout
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current)
+    }
+    
     if (value.length > 0) {
       setIsTyping(true)
+      // Set timeout to hide typing indicator after 2 seconds of no typing
+      typingTimeoutRef.current = setTimeout(() => {
+        setIsTyping(false)
+      }, 2000)
     } else {
       setIsTyping(false)
     }
@@ -44,6 +63,28 @@ export default function ConversationsPanel({ className = '' }: ConversationsPane
   const handleMessageTypeChange = (type: 'email' | 'whatsapp') => {
     setMessageType(type)
     setShowDropdown(false)
+  }
+
+  const handleSendMessage = () => {
+    if (messageText.trim()) {
+      // Here you would typically send the message to your API
+      console.log(`Sending ${messageType} message:`, messageText)
+      
+      // Clear the input and hide typing indicator
+      setMessageText('')
+      setIsTyping(false)
+      
+      // Clear any existing timeout
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current)
+      }
+    }
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSendMessage()
+    }
   }
 
   if (isLoading) {
@@ -201,6 +242,7 @@ export default function ConversationsPanel({ className = '' }: ConversationsPane
               placeholder="Type your message" 
               value={messageText}
               onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
             />
             <div className="input-actions">
               <button className="btn-purple">
@@ -208,7 +250,7 @@ export default function ConversationsPanel({ className = '' }: ConversationsPane
                   <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
                 </svg>
               </button>
-              <button className="btn-send">
+              <button className="btn-send" onClick={handleSendMessage}>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                 </svg>
