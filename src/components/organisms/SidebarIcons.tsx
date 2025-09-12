@@ -6,7 +6,7 @@ export default function SidebarIcons({ className = '' }: SidebarIconsProps) {
   return (
     <div className={`sidebar-icons-container ${className}`}>
       <div className="sidebar-icons">
-        <button className="sidebar-icon active" title="Refresh">
+        <button className="sidebar-icon" title="Refresh">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
           </svg>
@@ -21,7 +21,7 @@ export default function SidebarIcons({ className = '' }: SidebarIconsProps) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </button>
-        <button className="sidebar-icon" title="Document">
+        <button className="sidebar-icon active" title="Document">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
