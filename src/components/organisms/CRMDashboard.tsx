@@ -30,14 +30,6 @@ export default function CRMDashboard({ contacts, fields, className = '' }: CRMDa
 
   return (
     <div className={`crm-dashboard ${className}`}>
-      {/* <Header 
-        contactName=""
-        currentIndex={currentContactIndex}
-        totalContacts={totalContacts}
-        onPrevious={handlePrevious}
-        onNext={handleNext}
-      /> */}
-      
       <div className="dashboard-content">
         <div className="dashboard-columns">
           <div className="column column-contact">

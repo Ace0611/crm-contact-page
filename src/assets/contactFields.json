@@ -18,7 +18,8 @@
         { "key": "city", "label": "City", "type": "string" },
         { "key": "country", "label": "Country", "type": "radio" },
         { "key": "owner", "label": "Owner", "type": "radio" },
-        { "key": "followers", "label": "Followers", "type": "multi-select" }
+        { "key": "followers", "label": "Followers", "type": "multi-select" },
+        { "key": "tags", "label": "Tags", "type": "chips" }
       ]
     },
     {

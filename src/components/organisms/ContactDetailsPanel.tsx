@@ -83,6 +83,80 @@ export default function ContactDetailsPanel({ contacts, fields, className = '' }
   const shouldExpandAdditionalInfo = !isAdditionalInfoCollapsed || (searchTerm && additionalInfoFolder && hasVisibleFields(additionalInfoFolder.fields))
   const shouldExpandDriverPreferences = !isDriverPreferencesCollapsed || (searchTerm && driverPreferencesFolder && hasVisibleFields(driverPreferencesFolder.fields))
 
+  // Render meta fields (Owner, Followers) dynamically
+  const renderMetaFields = () => {
+    const metaFields = ['owner', 'followers']
+    return metaFields.map(fieldKey => {
+      const field = fields.folders
+        .flatMap(folder => folder.fields)
+        .find(f => f.key === fieldKey)
+      
+      if (!field) return null
+      
+      const value = getFieldValue(fieldKey)
+      if (!value) return null
+      
+      if (fieldKey === 'owner') {
+        return (
+          <div key={fieldKey} className="meta-item">
+            <label>{field.label}</label>
+            <div className="meta-value">
+              <Avatar name={value ? value.split(' ').map((n: string) => n[0]).join('') : 'DL'} size="sm" />
+              <span>{value}</span>
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+        )
+      }
+      
+      if (fieldKey === 'followers' && Array.isArray(value)) {
+        return (
+          <div key={fieldKey} className="meta-item">
+            <label>{field.label}</label>
+            <div className="meta-value">
+              <div className="followers-avatars">
+                {value.slice(0, 2).map((follower, index) => (
+                  <Avatar key={index} name={follower.split(' ').map((n: string) => n[0]).join('')} size="sm" />
+                ))}
+              </div>
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+        )
+      }
+      
+      return null
+    }).filter(Boolean)
+  }
+
+  // Render tags dynamically
+  const renderTags = () => {
+    const tags = getFieldValue('tags')
+    if (!Array.isArray(tags) || tags.length === 0) return null
+    
+    return (
+      <div className="contact-tags">
+        <label className="tag-label">Tags</label>
+        <div className="tag-container">
+          {tags.map((tag, index) => (
+            <span key={index} className="tag tag-blue">
+              {tag}
+              <button className="tag-remove">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </span>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
   // Render fields for a folder
   const renderFolderFields = (folderFields: Array<{key: string, label: string, type: string}>) => {
     return folderFields.map(field => {
@@ -170,57 +244,10 @@ export default function ContactDetailsPanel({ contacts, fields, className = '' }
         </div>
         
         <div className="contact-meta">
-          <div className="meta-item">
-            <label>Owner</label>
-            <div className="meta-value">
-              <Avatar name="DL" size="sm" />
-              <span>Devon Lane</span>
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </div>
-          </div>
-          <div className="meta-item">
-            <label>Followers</label>
-            <div className="meta-value">
-              <div className="followers-avatars">
-                <Avatar name="F1" size="sm" />
-                <Avatar name="F2" size="sm" />
-              </div>
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </div>
-          </div>
+          {renderMetaFields()}
         </div>
         
-        <div className="contact-tags">
-          <label className="tag-label">Tags</label>
-          <div className="tag-container">
-            <span className="tag tag-blue">
-              Shared Contact
-              <button className="tag-remove">
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </span>
-            <span className="tag tag-blue">
-              VIP
-              <button className="tag-remove">
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </span>
-            <span className="tag tag-blue">+15</span>
-            <button className="btn-add-tag">
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
-            </button>
-          </div>
-        </div>
+        {renderTags()}
       </div>
 
       {/* Navigation Tabs */}
