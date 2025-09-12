@@ -1147,9 +1147,6 @@ p {
 .conversation-thread {
   background: white;
   border-radius: 0;
-  padding: 1rem 0;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid #e5e7eb;
 }
 
 .thread-header {
@@ -1973,12 +1970,6 @@ p {
   flex: 1;
   overflow-y: auto;
   margin-bottom: 1rem;
-}
-
-.conversation-thread {
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #f3f4f6;
 }
 
 .conversation-thread:last-child {
