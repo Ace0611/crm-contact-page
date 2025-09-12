@@ -10,28 +10,48 @@ export default function MessageRenderer({ message }: MessageRendererProps) {
     <div className="message message-email">
       <div className="message-header">
         <div className="message-sender">
-          <Avatar name={message.sender.avatar} size="lg" />
-          <span>{message.sender.name}</span>
-          {message.sender.recipient && (
-            <span className="message-to">{message.sender.recipient}</span>
-          )}
+          <img 
+            src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face" 
+            alt={message.sender.name}
+            className="message-avatar"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+              const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
+              if (nextElement) nextElement.style.display = 'flex';
+            }}
+          />
+          <div className="avatar-fallback" style={{ display: 'none' }}>
+            <Avatar name={message.sender.avatar} size="md" />
+          </div>
+          <div className="sender-info">
+            <div className="sender-name">{message.sender.name}</div>
+            {message.sender.recipient && (
+              <div className="message-to">{message.sender.recipient}</div>
+            )}
+          </div>
         </div>
         <div className="message-meta">
           <span className="message-time">{message.timestamp}</span>
           {message.actions && (
             <div className="message-actions">
               {message.actions.map((action, index) => (
-                <svg key={index} className="w-4 h-4" fill={action.filled ? "currentColor" : "none"} stroke="currentColor" viewBox="0 0 24 24">
+                <button key={index} className={`action-btn ${action.type}`}>
                   {action.type === 'star' && (
-                    <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                    <svg className="w-4 h-4" fill={action.filled ? "#fbbf24" : "none"} stroke="currentColor" viewBox="0 0 24 24">
+                      <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                    </svg>
                   )}
                   {action.type === 'reply' && (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                    </svg>
                   )}
                   {action.type === 'more' && (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                    </svg>
                   )}
-                </svg>
+                </button>
               ))}
             </div>
           )}
@@ -40,7 +60,7 @@ export default function MessageRenderer({ message }: MessageRendererProps) {
       <div className="message-content">
         <p>{message.content.text}</p>
         {message.content.cta && (
-          <button className="btn-track">{message.content.cta.text}</button>
+          <a href="#" className="cta-link">{message.content.cta.text}</a>
         )}
       </div>
       {message.footer?.replyButton && (

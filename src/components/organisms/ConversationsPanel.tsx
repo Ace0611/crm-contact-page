@@ -8,7 +8,6 @@ interface ConversationsPanelProps {
 }
 
 export default function ConversationsPanel({ className = '' }: ConversationsPanelProps) {
-  const [isConversationsCollapsed, setIsConversationsCollapsed] = useState(false)
   const [messageType, setMessageType] = useState<'email' | 'whatsapp'>('email')
   const [isTyping, setIsTyping] = useState(false)
   const [messageText, setMessageText] = useState('')
@@ -126,39 +125,39 @@ export default function ConversationsPanel({ className = '' }: ConversationsPane
   return (
     <div className={`conversations-panel ${className}`}>
       <div className="panel-header">
-        <h3>Conversations</h3>
-        <button 
-          className="btn-icon"
-          onClick={() => setIsConversationsCollapsed(!isConversationsCollapsed)}
-          aria-label={isConversationsCollapsed ? 'Expand Conversations' : 'Collapse Conversations'}
-        >
-          <svg 
-            className={`w-4 h-4 transition-transform ${isConversationsCollapsed ? 'rotate-180' : ''}`} 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-          >
+        <div className="panel-title">
+          <svg className="w-4 h-4 conversations-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          <h3>Conversations</h3>
+        </div>
+        <button className="btn-icon">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </button>
       </div>
       
-      <div className={`conversations-content ${isConversationsCollapsed ? 'collapsed' : ''}`}>
+      <div className="conversations-content">
         {conversationsData?.conversations.map((conversation: Conversation) => (
           <div key={conversation.id} className="conversation-thread">
-            <div className="thread-header">
+            {/* Thread Subject */}
+            <div className="thread-subject">
               <h4>{conversation.subject}</h4>
               <svg className="w-4 h-4 expand-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
               </svg>
             </div>
-            
 
-            
+            {/* Unread Message Indicator */}
             <div className="thread-indicator">
-              <span className="indicator-number">{conversation.threadCount}</span>
+              <div className="indicator-line"></div>
+              <div className="indicator-circle">
+                <span className="indicator-number">{conversation.threadCount}</span>
+              </div>
             </div>
             
+            {/* Messages */}
             {conversation.messages.map((message) => (
               <MessageRenderer key={message.id} message={message} />
             ))}
