@@ -923,8 +923,8 @@ p {
   margin-bottom: 1rem;
   background: white;
   border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
-  padding: 0.75rem;
+  border-radius: 0.75rem;
+  padding: 1rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -936,14 +936,14 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .section-header h3 {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.125rem;
+  font-weight: 700;
   color: #111827;
   margin: 0;
 }
@@ -952,6 +952,32 @@ p {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.section-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.section-toggle:hover {
+  background: #f3f4f6;
+}
+
+.section-toggle svg {
+  width: 1rem;
+  height: 1rem;
+  stroke: #6b7280;
+}
+
+.section-toggle:hover svg {
+  stroke: #374151;
 }
 
 .btn-add {
@@ -993,8 +1019,8 @@ p {
 
 .field-row {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
+  gap: 1.5rem;
+  align-items: flex-start;
 }
 
 .field-item {
@@ -1006,17 +1032,16 @@ p {
 }
 
 .field-item label {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   color: #6b7280;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.025em;
+  margin-bottom: 0.25rem;
 }
 
 .field-value {
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: #111827;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.4;
 }
 

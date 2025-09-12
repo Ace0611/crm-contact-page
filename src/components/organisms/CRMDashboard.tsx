@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import type { Contact, FieldDefinitions } from '../../types'
-import Header from './Header'
 import ContactDetailsPanel from './ContactDetailsPanel'
 import ConversationsPanel from './ConversationsPanel'
 import NotesPanel from './NotesPanel'

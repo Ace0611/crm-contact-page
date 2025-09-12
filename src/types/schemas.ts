@@ -2,18 +2,28 @@ import { z } from 'zod'
 
 // Field Definition Schema
 export const FieldDefinitionSchema = z.object({
+  key: z.string(),
   label: z.string(),
-  type: z.enum(['text', 'email', 'tel', 'chips']).optional(),
+  type: z.enum(['string', 'email', 'phone', 'radio', 'multi-select', 'chips']),
   required: z.boolean().optional(),
 })
 
-export const FieldDefinitionsSchema = z.record(z.string(), FieldDefinitionSchema)
+// Folder Schema
+export const FolderSchema = z.object({
+  name: z.string(),
+  fields: z.array(FieldDefinitionSchema),
+})
+
+// Field Definitions Schema (now folders-based)
+export const FieldDefinitionsSchema = z.object({
+  folders: z.array(FolderSchema),
+})
 
 // Layout Section Schema
 export const LayoutSectionSchema = z.object({
   id: z.string(),
   label: z.string(),
-  columns: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]),
+  columns: z.number().min(1).max(4),
   fields: z.array(z.string()),
 })
 
@@ -30,12 +40,18 @@ export const ContactSchema = z.object({
   lastName: z.string().optional(),
   email: z.string().optional(),
   phone: z.string().optional(),
+  address: z.string().optional(),
   street: z.string().optional(),
   city: z.string().optional(),
   state: z.string().optional(),
   zipCode: z.string().optional(),
   company: z.string().optional(),
   jobTitle: z.string().optional(),
+  businessName: z.string().optional(),
+  streetAddress: z.string().optional(),
+  country: z.string().optional(),
+  owner: z.string().optional(),
+  followers: z.array(z.string()).optional(),
   tags: z.array(z.string()).optional(),
 })
 
@@ -91,6 +107,7 @@ export const ConversationsDataSchema = z.object({
 
 // Export inferred types
 export type FieldDefinition = z.infer<typeof FieldDefinitionSchema>
+export type Folder = z.infer<typeof FolderSchema>
 export type FieldDefinitions = z.infer<typeof FieldDefinitionsSchema>
 export type LayoutSection = z.infer<typeof LayoutSectionSchema>
 export type Layout = z.infer<typeof LayoutSchema>

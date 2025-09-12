@@ -1,8 +1,11 @@
 // Cache service with TTL support
 class CacheService {
   private cache = new Map<string, { data: unknown; timestamp: number }>()
+  private ttlMs: number
   
-  constructor(private ttlMs = 5 * 60 * 1000) {} // 5 minutes default
+  constructor(ttlMs = 5 * 60 * 1000) {
+    this.ttlMs = ttlMs // 5 minutes default
+  }
 
   set(key: string, data: unknown): void {
     this.cache.set(key, {

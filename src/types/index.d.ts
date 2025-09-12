@@ -1,6 +1,9 @@
+import React from 'react'
+
 // Re-export all types from schemas for convenience
 export type {
   FieldDefinition,
+  Folder,
   FieldDefinitions,
   LayoutSection,
   Layout,
@@ -18,7 +21,7 @@ export interface RenderOptions {
   className?: string
   showLabels?: boolean
   showSections?: boolean
-  customFieldRenderer?: (fieldKey: string, value: unknown, fieldDef?: FieldDefinition) => JSX.Element
+  customFieldRenderer?: (fieldKey: string, value: unknown, fieldDef?: FieldDefinition) => React.ReactElement
 }
 
 export interface FolderConfig {

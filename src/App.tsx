@@ -1,34 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import CRMDashboard from './components/organisms/CRMDashboard'
+import { useContactData } from './hooks/useContactData'
+import { useContactFields } from './hooks/useContactFields'
+import './styles/main.css'
+
+const queryClient = new QueryClient()
+
+function AppContent() {
+  const { contact, isLoading: contactLoading, error: contactError } = useContactData('c_001')
+  const { fields, isLoading: fieldsLoading, error: fieldsError } = useContactFields()
+
+  if (contactLoading || fieldsLoading) {
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh',
+        fontSize: '1.2rem',
+        color: '#6b7280'
+      }}>
+        Loading CRM Dashboard...
+      </div>
+    )
+  }
+
+  if (contactError || fieldsError) {
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh',
+        fontSize: '1.2rem',
+        color: '#dc2626'
+      }}>
+        Error loading data: {String(contactError || fieldsError)}
+      </div>
+    )
+  }
+
+  if (!contact || !fields) {
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh',
+        fontSize: '1.2rem',
+        color: '#6b7280'
+      }}>
+        No data available
+      </div>
+    )
+  }
+
+  return <CRMDashboard contact={contact} fields={fields} />
+}
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <AppContent />
+    </QueryClientProvider>
   )
 }
 

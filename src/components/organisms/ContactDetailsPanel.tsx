@@ -148,173 +148,205 @@ export default function ContactDetailsPanel({ contact, className = '' }: Contact
           <svg className="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
-          <input 
-            type="text" 
-            placeholder="Search Fields and Folders" 
+          <input
+            type="text"
+            placeholder="Search Fields and Folders"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-field"
           />
           <svg className="filter-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
           </svg>
         </div>
       </div>
 
-      {/* Contact Information Sections */}
-      <div className="contact-sections">
-        {hasVisibleFields([
-          {name: 'First Name', value: contact.firstName},
-          {name: 'Last Name', value: contact.lastName},
-          {name: 'Phone Number', value: contact.phone},
-          {name: 'Email', value: contact.email},
-          {name: 'Address', value: `${contact.street}, ${contact.city}, ${contact.state} ${contact.zipCode}. USA.`}
-        ]) && (
-        <div className={`contact-section ${isContactCollapsed ? 'collapsed' : ''}`}>
-          <div className="section-header">
-            <h3>Contact</h3>
-            <div className="section-actions">
-              <button className="btn-add">+ Add</button>
-              <button 
-                className="collapse-btn"
-                onClick={() => setIsContactCollapsed(!isContactCollapsed)}
-                aria-label={isContactCollapsed ? 'Expand Contact' : 'Collapse Contact'}
+      {/* Contact Section */}
+      {(hasVisibleFields([
+        { name: 'First Name', value: contact.firstName },
+        { name: 'Last Name', value: contact.lastName },
+        { name: 'Phone Number', value: contact.phone },
+        { name: 'Email', value: contact.email },
+        { name: 'Address', value: contact.address }
+      ])) && (
+      <div className="contact-section">
+        <div className="section-header">
+          <h3>Contact</h3>
+          <div className="section-actions">
+            <button className="btn-add">+ Add</button>
+            <button 
+              className="section-toggle"
+              onClick={() => setIsContactCollapsed(!isContactCollapsed)}
+            >
+              <svg 
+                className={`w-4 h-4 transition-transform ${isContactCollapsed ? 'rotate-180' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
               >
-                <svg 
-                  className={`w-4 h-4 transition-transform ${isContactCollapsed ? 'rotate-180' : ''}`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+              </svg>
+            </button>
           </div>
+        </div>
+        
+        {!isContactCollapsed && (
           <div className="section-fields">
-            <div className="field-row">
-              {filterFields('First Name', contact.firstName) && (
+            {filterFields('First Name', contact.firstName) && (
+              <div className="field-row">
                 <div className="field-item">
                   <label>First Name</label>
-                  <span className="field-value">{contact.firstName}</span>
+                  <div className="field-value">{contact.firstName || ''}</div>
                 </div>
-              )}
-              {filterFields('Last Name', contact.lastName) && (
-                <div className="field-item">
-                  <label>Last Name</label>
-                  <span className="field-value">{contact.lastName}</span>
-                </div>
-              )}
-            </div>
+                {filterFields('Last Name', contact.lastName) && (
+                  <div className="field-item">
+                    <label>Last Name</label>
+                    <div className="field-value">{contact.lastName || ''}</div>
+                  </div>
+                )}
+              </div>
+            )}
             {filterFields('Phone Number', contact.phone) && (
-              <div className="field-item">
-                <label>Phone Number</label>
-                <span className="field-value">
-                  <span className="flag-icon">🇺🇸</span>
-                  {contact.phone}
-                </span>
+              <div className="field-row">
+                <div className="field-item">
+                  <label>Phone Number</label>
+                  <div className="field-value">
+                    <span className="flag-icon">🇺🇸</span>
+                    {contact.phone || ''}
+                  </div>
+                </div>
               </div>
             )}
             {filterFields('Email', contact.email) && (
-              <div className="field-item">
-                <label>Email</label>
-                <span className="field-value">{contact.email}</span>
+              <div className="field-row">
+                <div className="field-item">
+                  <label>Email</label>
+                  <div className="field-value">{contact.email || ''}</div>
+                </div>
               </div>
             )}
-            {filterFields('Address', `${contact.street}, ${contact.city}, ${contact.state} ${contact.zipCode}. USA.`) && (
-              <div className="field-item">
-                <label>Address</label>
-                <span className="field-value">
-                  {contact.street}, {contact.city}, {contact.state} {contact.zipCode}. USA.
-                </span>
+            {filterFields('Address', contact.address) && (
+              <div className="field-row">
+                <div className="field-item">
+                  <label>Address</label>
+                  <div className="field-value">{contact.address || ''}</div>
+                </div>
               </div>
             )}
+          </div>
+        )}
+      </div>
+      )}
+
+      {/* Additional Info Section */}
+      {(hasVisibleFields([
+        { name: 'Business Name', value: contact.businessName },
+        { name: 'Street Address', value: contact.streetAddress },
+        { name: 'City', value: contact.city },
+        { name: 'Country', value: contact.country }
+      ])) && (
+      <div className="contact-section">
+        <div className="section-header">
+          <h3>Additional Info</h3>
+          <div className="section-actions">
+            <button 
+              className="section-toggle"
+              onClick={() => setIsAdditionalInfoCollapsed(!isAdditionalInfoCollapsed)}
+            >
+              <svg 
+                className={`w-4 h-4 transition-transform ${isAdditionalInfoCollapsed ? 'rotate-180' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+              </svg>
+            </button>
           </div>
         </div>
-        )}
-
-        {hasVisibleFields([
-          {name: 'Business Name', value: contact.company},
-          {name: 'Street Address', value: contact.street},
-          {name: 'City', value: contact.city},
-          {name: 'Country', value: 'United States'}
-        ]) && (
-        <div className={`contact-section ${isAdditionalInfoCollapsed ? 'collapsed' : ''}`}>
-          <div className="section-header">
-            <h3>Additional Info</h3>
-            <div className="section-actions">
-              <button 
-                className="collapse-btn"
-                onClick={() => setIsAdditionalInfoCollapsed(!isAdditionalInfoCollapsed)}
-                aria-label={isAdditionalInfoCollapsed ? 'Expand Additional Info' : 'Collapse Additional Info'}
-              >
-                <svg 
-                  className={`w-4 h-4 transition-transform ${isAdditionalInfoCollapsed ? 'rotate-180' : ''}`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
-          </div>
+        
+        {!isAdditionalInfoCollapsed && (
           <div className="section-fields">
-            {filterFields('Business Name', contact.company) && (
-              <div className="field-item">
-                <label>Business Name</label>
-                <span className="field-value">{contact.company}</span>
+            {filterFields('Business Name', contact.businessName) && (
+              <div className="field-row">
+                <div className="field-item">
+                  <label>Business Name</label>
+                  <div className="field-value">{contact.businessName || ''}</div>
+                </div>
               </div>
             )}
-            {filterFields('Street Address', contact.street) && (
-              <div className="field-item">
-                <label>Street Address</label>
-                <span className="field-value">{contact.street}</span>
+            {filterFields('Street Address', contact.streetAddress) && (
+              <div className="field-row">
+                <div className="field-item">
+                  <label>Street Address</label>
+                  <div className="field-value">{contact.streetAddress || ''}</div>
+                </div>
               </div>
             )}
             {filterFields('City', contact.city) && (
-              <div className="field-item">
-                <label>City</label>
-                <span className="field-value">{contact.city}</span>
+              <div className="field-row">
+                <div className="field-item">
+                  <label>City</label>
+                  <div className="field-value">{contact.city || ''}</div>
+                </div>
               </div>
             )}
-            {filterFields('Country', 'United States') && (
-              <div className="field-item">
-                <label>Country</label>
-                <span className="field-value">United States</span>
+            {filterFields('Country', contact.country) && (
+              <div className="field-row">
+                <div className="field-item">
+                  <label>Country</label>
+                  <div className="field-value">{contact.country || ''}</div>
+                </div>
               </div>
             )}
           </div>
-        </div>
         )}
+      </div>
+      )}
 
-        <div className={`contact-section ${isDriverPreferencesCollapsed ? 'collapsed' : ''}`}>
-          <div className="section-header">
-            <h3>Head Car Driver Preferences</h3>
-            <div className="section-actions">
-              <button 
-                className="collapse-btn"
-                onClick={() => setIsDriverPreferencesCollapsed(!isDriverPreferencesCollapsed)}
-                aria-label={isDriverPreferencesCollapsed ? 'Expand Driver Preferences' : 'Collapse Driver Preferences'}
+      {/* Head Car Driver Preferences Section */}
+      {(hasVisibleFields([
+        { name: 'Driver Preference', value: 'Professional Driver' },
+        { name: 'Vehicle Type', value: 'Sedan' }
+      ])) && (
+      <div className="contact-section">
+        <div className="section-header">
+          <h3>Head Car Driver Preferences</h3>
+          <div className="section-actions">
+            <button 
+              className="section-toggle"
+              onClick={() => setIsDriverPreferencesCollapsed(!isDriverPreferencesCollapsed)}
+            >
+              <svg 
+                className={`w-4 h-4 transition-transform ${isDriverPreferencesCollapsed ? 'rotate-180' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
               >
-                <svg 
-                  className={`w-4 h-4 transition-transform ${isDriverPreferencesCollapsed ? 'rotate-180' : ''}`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div className="section-fields">
-            <div className="field-item">
-              <label>Driver Preferences</label>
-              <span className="field-value">No preferences set</span>
-            </div>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+              </svg>
+            </button>
           </div>
         </div>
+        
+        {!isDriverPreferencesCollapsed && (
+          <div className="section-fields">
+            {filterFields('Driver Preference', 'Professional Driver') && (
+              <div className="field-row">
+                <label className="field-label">Driver Preference</label>
+                <div className="field-value">Professional Driver</div>
+              </div>
+            )}
+            {filterFields('Vehicle Type', 'Sedan') && (
+              <div className="field-row">
+                <label className="field-label">Vehicle Type</label>
+                <div className="field-value">Sedan</div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
+      )}
     </div>
   )
 }

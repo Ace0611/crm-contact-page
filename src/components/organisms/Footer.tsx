@@ -3,7 +3,7 @@ interface FooterProps {
   onNext?: () => void
 }
 
-export default function Footer({ onPrevious, onNext }: FooterProps) {
+export default function Footer({ onPrevious }: FooterProps) {
   return (
     <footer className="footer">
       <div className="footer-content">

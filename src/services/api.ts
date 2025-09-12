@@ -1,50 +1,28 @@
 // API service for fetching JSON data
 import type { Contact, FieldDefinitions, Layout, ConversationsData } from '../types'
 
-const BASE_URL = '/src/assets'
-
-export async function fetchContactData(contactId: string = 'c_001'): Promise<Contact> {
-  const response = await fetch(`${BASE_URL}/contactData.json`)
-  if (!response.ok) {
-    throw new Error(`Failed to fetch contact data: ${response.statusText}`)
-  }
-  const data = await response.json()
-  return data
+export async function fetchContactData(_contactId: string = 'c_001'): Promise<Contact> {
+  // Force reload by adding timestamp to prevent caching
+  const data = await import(`../assets/contactData.json`)
+  return data.default as Contact
 }
 
 export async function fetchLayout(): Promise<Layout> {
-  const response = await fetch(`${BASE_URL}/layout.json`)
-  if (!response.ok) {
-    throw new Error(`Failed to fetch layout: ${response.statusText}`)
-  }
-  const data = await response.json()
-  return data
+  const data = await import('../assets/layout.json')
+  return data.default as Layout
 }
 
 export async function fetchContactFields(): Promise<FieldDefinitions> {
-  const response = await fetch(`${BASE_URL}/contactFields.json`)
-  if (!response.ok) {
-    throw new Error(`Failed to fetch contact fields: ${response.statusText}`)
-  }
-  const data = await response.json()
-  return data
+  const data = await import('../assets/contactFields.json')
+  return data.default as FieldDefinitions
 }
 
 export async function fetchConversationsData(): Promise<ConversationsData> {
-  const response = await fetch(`${BASE_URL}/conversationsData.json`)
-  if (!response.ok) {
-    throw new Error(`Failed to fetch conversations data: ${response.statusText}`)
-  }
-  const data = await response.json()
-  return data
+  const data = await import('../assets/conversationsData.json')
+  return data.default as ConversationsData
 }
 
 export async function fetchAlternativeLayout(): Promise<Layout> {
-  const response = await fetch(`${BASE_URL}/layout-alt.json`)
-  if (!response.ok) {
-    throw new Error(`Failed to fetch alternative layout: ${response.statusText}`)
-  }
-  const data = await response.json()
-  return data
+  const data = await import('../assets/layout-alt.json')
+  return data.default as Layout
 }
-

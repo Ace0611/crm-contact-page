@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-// import { ConversationsDataSchema, type ConversationsData } from '../types'
 import { fetchConversationsData } from '../services/api'
+import type { ConversationsData } from '../types'
 
 export function useConversationsData() {
   return useQuery<ConversationsData>({
