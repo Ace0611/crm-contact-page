@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import type { Contact, FieldDefinitions } from '../../types'
 import Avatar from '../atoms/Avatar'
 
@@ -8,10 +8,27 @@ interface ContactDetailsPanelProps {
   className?: string
 }
 
-export default function ContactDetailsPanel({ contact, fields, className = '' }: ContactDetailsPanelProps) {
+export default function ContactDetailsPanel({ contact, className = '' }: ContactDetailsPanelProps) {
   const [isContactCollapsed, setIsContactCollapsed] = useState(false)
   const [isAdditionalInfoCollapsed, setIsAdditionalInfoCollapsed] = useState(false)
   const [isDriverPreferencesCollapsed, setIsDriverPreferencesCollapsed] = useState(true) // Start collapsed as per original design
+  const [searchTerm, setSearchTerm] = useState('')
+
+  // Filter fields based on search term
+  const filterFields = (fieldName: string, fieldValue: string | undefined) => {
+    if (!searchTerm) return true
+    if (!fieldValue) return false
+    const searchLower = searchTerm.toLowerCase()
+    return fieldName.toLowerCase().includes(searchLower) || 
+           fieldValue.toLowerCase().includes(searchLower)
+  }
+
+  // Check if a section has any visible fields
+  const hasVisibleFields = (fields: Array<{name: string, value: string | undefined}>) => {
+    if (!searchTerm) return true
+    return fields.some(field => filterFields(field.name, field.value))
+  }
+
   return (
     <div className={`contact-details-panel ${className}`}>
       {/* Panel Header */}
@@ -45,14 +62,17 @@ export default function ContactDetailsPanel({ contact, fields, className = '' }:
                 className="contact-avatar-image"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
-                  e.currentTarget.nextElementSibling.style.display = 'flex';
+                  const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
+                  if (nextElement) {
+                    nextElement.style.display = 'flex';
+                  }
                 }}
               />
               <div className="contact-avatar-fallback" style={{ display: 'none' }}>
-                {contact.firstName[0]}{contact.lastName[0]}
+                {contact.firstName?.[0]}{contact.lastName?.[0]}
               </div>
             </div>
-            <h2 className="contact-name">{contact.firstName} {contact.lastName}</h2>
+            <h2 className="contact-name">{contact.firstName || ''} {contact.lastName || ''}</h2>
           </div>
           <button className="btn-call">
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -128,7 +148,12 @@ export default function ContactDetailsPanel({ contact, fields, className = '' }:
           <svg className="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
-          <input type="text" placeholder="Search Fields and Folders" />
+          <input 
+            type="text" 
+            placeholder="Search Fields and Folders" 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
           <svg className="filter-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
           </svg>
@@ -137,6 +162,13 @@ export default function ContactDetailsPanel({ contact, fields, className = '' }:
 
       {/* Contact Information Sections */}
       <div className="contact-sections">
+        {hasVisibleFields([
+          {name: 'First Name', value: contact.firstName},
+          {name: 'Last Name', value: contact.lastName},
+          {name: 'Phone Number', value: contact.phone},
+          {name: 'Email', value: contact.email},
+          {name: 'Address', value: `${contact.street}, ${contact.city}, ${contact.state} ${contact.zipCode}. USA.`}
+        ]) && (
         <div className={`contact-section ${isContactCollapsed ? 'collapsed' : ''}`}>
           <div className="section-header">
             <h3>Contact</h3>
@@ -160,35 +192,52 @@ export default function ContactDetailsPanel({ contact, fields, className = '' }:
           </div>
           <div className="section-fields">
             <div className="field-row">
+              {filterFields('First Name', contact.firstName) && (
+                <div className="field-item">
+                  <label>First Name</label>
+                  <span className="field-value">{contact.firstName}</span>
+                </div>
+              )}
+              {filterFields('Last Name', contact.lastName) && (
+                <div className="field-item">
+                  <label>Last Name</label>
+                  <span className="field-value">{contact.lastName}</span>
+                </div>
+              )}
+            </div>
+            {filterFields('Phone Number', contact.phone) && (
               <div className="field-item">
-                <label>First Name</label>
-                <span className="field-value">{contact.firstName}</span>
+                <label>Phone Number</label>
+                <span className="field-value">
+                  <span className="flag-icon">🇺🇸</span>
+                  {contact.phone}
+                </span>
               </div>
+            )}
+            {filterFields('Email', contact.email) && (
               <div className="field-item">
-                <label>Last Name</label>
-                <span className="field-value">{contact.lastName}</span>
+                <label>Email</label>
+                <span className="field-value">{contact.email}</span>
               </div>
-            </div>
-            <div className="field-item">
-              <label>Phone Number</label>
-              <span className="field-value">
-                <span className="flag-icon">🇺🇸</span>
-                {contact.phone}
-              </span>
-            </div>
-            <div className="field-item">
-              <label>Email</label>
-              <span className="field-value">{contact.email}</span>
-            </div>
-            <div className="field-item">
-              <label>Address</label>
-              <span className="field-value">
-                {contact.street}, {contact.city}, {contact.state} {contact.zipCode}. USA.
-              </span>
-            </div>
+            )}
+            {filterFields('Address', `${contact.street}, ${contact.city}, ${contact.state} ${contact.zipCode}. USA.`) && (
+              <div className="field-item">
+                <label>Address</label>
+                <span className="field-value">
+                  {contact.street}, {contact.city}, {contact.state} {contact.zipCode}. USA.
+                </span>
+              </div>
+            )}
           </div>
         </div>
+        )}
 
+        {hasVisibleFields([
+          {name: 'Business Name', value: contact.company},
+          {name: 'Street Address', value: contact.street},
+          {name: 'City', value: contact.city},
+          {name: 'Country', value: 'United States'}
+        ]) && (
         <div className={`contact-section ${isAdditionalInfoCollapsed ? 'collapsed' : ''}`}>
           <div className="section-header">
             <h3>Additional Info</h3>
@@ -210,24 +259,33 @@ export default function ContactDetailsPanel({ contact, fields, className = '' }:
             </div>
           </div>
           <div className="section-fields">
-            <div className="field-item">
-              <label>Business Name</label>
-              <span className="field-value">{contact.company}</span>
-            </div>
-            <div className="field-item">
-              <label>Street Address</label>
-              <span className="field-value">{contact.street}</span>
-            </div>
-            <div className="field-item">
-              <label>City</label>
-              <span className="field-value">{contact.city}</span>
-            </div>
-            <div className="field-item">
-              <label>Country</label>
-              <span className="field-value">United States</span>
-            </div>
+            {filterFields('Business Name', contact.company) && (
+              <div className="field-item">
+                <label>Business Name</label>
+                <span className="field-value">{contact.company}</span>
+              </div>
+            )}
+            {filterFields('Street Address', contact.street) && (
+              <div className="field-item">
+                <label>Street Address</label>
+                <span className="field-value">{contact.street}</span>
+              </div>
+            )}
+            {filterFields('City', contact.city) && (
+              <div className="field-item">
+                <label>City</label>
+                <span className="field-value">{contact.city}</span>
+              </div>
+            )}
+            {filterFields('Country', 'United States') && (
+              <div className="field-item">
+                <label>Country</label>
+                <span className="field-value">United States</span>
+              </div>
+            )}
           </div>
         </div>
+        )}
 
         <div className={`contact-section ${isDriverPreferencesCollapsed ? 'collapsed' : ''}`}>
           <div className="section-header">
