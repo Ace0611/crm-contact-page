@@ -6,11 +6,15 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:github": "NODE_ENV=production vite build --base=/crm-contact-page/",
+    "build:vercel": "NODE_ENV=production vite build",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "husky",
+    "deploy:github": "npm run build:github && gh-pages -d dist",
+    "deploy:vercel": "vercel --prod"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
@@ -44,6 +48,7 @@
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
+    "gh-pages": "^6.1.1",
     "globals": "^16.3.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",

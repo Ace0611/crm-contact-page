@@ -454,6 +454,48 @@ crm-contact-page/
 - Implement real-time updates
 - Add data export/import functionality
 
+## 🚀 Deployment
+
+### Quick Deploy
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/crm-contact-page)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/yourusername/crm-contact-page)
+
+### Build for Production
+```bash
+# Standard build
+npm run build
+
+# Build for GitHub Pages
+npm run build:github
+
+# Build for Vercel
+npm run build:vercel
+```
+
+### Preview Production Build
+```bash
+npm run preview
+```
+
+### Deployment Commands
+```bash
+# Deploy to GitHub Pages
+npm run deploy:github
+
+# Deploy to Vercel
+npm run deploy:vercel
+```
+
+### Deployment Options
+- **Vercel**: One-click deploy with automatic CI/CD
+- **Netlify**: Automatic deployments with preview branches
+- **GitHub Pages**: Free hosting with GitHub Actions
+- **Static Hosting**: Any static hosting provider
+- **CDN**: Use CloudFlare or AWS CloudFront for global distribution
+
+### Detailed Deployment Guide
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for comprehensive deployment instructions for all platforms.
+
 ## 📞 Support
 
 For issues or questions:

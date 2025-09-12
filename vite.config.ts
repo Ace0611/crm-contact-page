@@ -41,6 +41,9 @@ export default defineConfig({
         short_name: 'CRM Contact',
         description: 'Dynamic contact management with JSON-driven layouts',
         theme_color: '#ffffff',
+        background_color: '#ffffff',
+        display: 'standalone',
+        start_url: '/',
         icons: [
           {
             src: 'pwa-192x192.png',
@@ -56,4 +59,21 @@ export default defineConfig({
       },
     }),
   ],
+  // Build configuration for deployment
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: false,
+    minify: 'terser',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          query: ['@tanstack/react-query'],
+        },
+      },
+    },
+  },
+  // Base path for GitHub Pages deployment
+  base: process.env.NODE_ENV === 'production' ? '/crm-contact-page/' : '/',
 })
