@@ -1,5 +1,5 @@
 // API service for fetching JSON data
-import type { Contact, FieldDefinitions, Layout, ConversationsData } from '../types'
+import type { Contact, FieldDefinitions, Layout, ConversationsData, NotesData } from '../types'
 
 export async function fetchContactData(_contactId: string = 'c_001'): Promise<Contact> {
   // Force reload by adding timestamp to prevent caching
@@ -20,6 +20,11 @@ export async function fetchContactFields(): Promise<FieldDefinitions> {
 export async function fetchConversationsData(): Promise<ConversationsData> {
   const data = await import('../assets/conversationsData.json')
   return data.default as ConversationsData
+}
+
+export async function fetchNotesData(): Promise<NotesData> {
+  const data = await import('../assets/notesData.json')
+  return data.default as NotesData
 }
 
 export async function fetchAlternativeLayout(): Promise<Layout> {

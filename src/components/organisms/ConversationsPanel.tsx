@@ -8,6 +8,7 @@ interface ConversationsPanelProps {
 }
 
 export default function ConversationsPanel({ className = '' }: ConversationsPanelProps) {
+  const [isConversationsCollapsed, setIsConversationsCollapsed] = useState(false)
   const [messageType, setMessageType] = useState<'email' | 'whatsapp'>('email')
   const [isTyping, setIsTyping] = useState(false)
   const [messageText, setMessageText] = useState('')
@@ -131,14 +132,23 @@ export default function ConversationsPanel({ className = '' }: ConversationsPane
           </svg>
           <h3>Conversations</h3>
         </div>
-        <button className="btn-icon">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button 
+          className="btn-icon"
+          onClick={() => setIsConversationsCollapsed(!isConversationsCollapsed)}
+          aria-label={isConversationsCollapsed ? 'Expand Conversations' : 'Collapse Conversations'}
+        >
+          <svg 
+            className={`w-4 h-4 transition-transform ${isConversationsCollapsed ? 'rotate-180' : ''}`} 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </button>
       </div>
       
-      <div className="conversations-content">
+      <div className={`conversations-content ${isConversationsCollapsed ? 'collapsed' : ''}`}>
         {conversationsData?.conversations.map((conversation: Conversation) => (
           <div key={conversation.id} className="conversation-thread">
             {/* Thread Subject */}

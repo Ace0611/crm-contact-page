@@ -2287,6 +2287,19 @@ p {
   font-weight: 500;
 }
 
+.note-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.note-author {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-style: italic;
+}
+
 /* Sidebar Icons Container */
 .sidebar-icons-container {
   display: flex;

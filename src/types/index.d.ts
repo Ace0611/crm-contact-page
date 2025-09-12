@@ -14,6 +14,8 @@ export type {
   Message,
   Conversation,
   ConversationsData,
+  Note,
+  NotesData,
 } from './schemas'
 
 // Additional utility types

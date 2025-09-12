@@ -1,0 +1,34 @@
+{
+  "notes": [
+    {
+      "id": "note_001",
+      "content": "Aaron Site Inspection completed. Heavy moss buildup on north side, moderate algae staining. Customer very satisfied with quote presentation. Chose premium package. Payment processed via credit card. Mentioned neighbor also needs service.",
+      "timestamp": "2 hours ago",
+      "author": "John Smith"
+    },
+    {
+      "id": "note_002", 
+      "content": "Customer mentioned that his pet has anxiety issues during grooming. Requested a specific time slot with less crowd. Make sure to allocate a calm handler for the session.",
+      "timestamp": "2 hours ago",
+      "author": "Sarah Wilson"
+    },
+    {
+      "id": "note_003",
+      "content": "Discussed package upgrade options. Customer is considering the premium monthly grooming plan. Follow up in one week to check on their decision and offer any needed clarification, unless there is a change in course.",
+      "timestamp": "2 hours ago", 
+      "author": "Mike Johnson"
+    },
+    {
+      "id": "note_004",
+      "content": "Olivia requested additional information about our enterprise solutions. Sent detailed pricing sheet and feature comparison. She mentioned budget approval needed from management.",
+      "timestamp": "1 hour ago",
+      "author": "Devon Lane"
+    },
+    {
+      "id": "note_005",
+      "content": "Follow-up call scheduled for next Tuesday at 2 PM. Customer wants to discuss custom integration options for their existing CRM system.",
+      "timestamp": "30 min ago",
+      "author": "Alex Chen"
+    }
+  ]
+}

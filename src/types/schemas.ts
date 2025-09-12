@@ -105,6 +105,19 @@ export const ConversationsDataSchema = z.object({
   conversations: z.array(ConversationSchema),
 })
 
+// Note Schema
+export const NoteSchema = z.object({
+  id: z.string(),
+  content: z.string(),
+  timestamp: z.string(),
+  author: z.string().optional(),
+})
+
+// Notes Data Schema
+export const NotesDataSchema = z.object({
+  notes: z.array(NoteSchema),
+})
+
 // Export inferred types
 export type FieldDefinition = z.infer<typeof FieldDefinitionSchema>
 export type Folder = z.infer<typeof FolderSchema>
@@ -118,4 +131,6 @@ export type MessageSender = z.infer<typeof MessageSenderSchema>
 export type Message = z.infer<typeof MessageSchema>
 export type Conversation = z.infer<typeof ConversationSchema>
 export type ConversationsData = z.infer<typeof ConversationsDataSchema>
+export type Note = z.infer<typeof NoteSchema>
+export type NotesData = z.infer<typeof NotesDataSchema>
 
