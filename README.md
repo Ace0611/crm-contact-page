@@ -2,6 +2,23 @@
 
 A modern, JSON-driven contact management application built with React, TypeScript, and vanilla CSS.
 
+**🌐 Live Demo**: [https://ace0611.github.io/crm-contact-page/](https://ace0611.github.io/crm-contact-page/)
+
+## ✨ Features
+
+- **📱 Progressive Web App (PWA)** - Installable with offline support
+- **🎨 JSON-Driven UI** - Dynamic rendering from configuration files
+- **👥 Contact Management** - View and navigate between multiple contacts
+- **💬 Conversations Panel** - Contact-specific messaging interface
+- **📝 Notes System** - Add and manage contact notes
+- **🔍 Search Functionality** - Search across all contact fields
+- **📱 Responsive Design** - Mobile-first with modern CSS Grid/Flexbox
+- **⚡ Real-time Updates** - React Query for efficient data management
+- **🎯 Type Safety** - Full TypeScript with Zod validation
+- **🏗️ Atomic Design** - Organized component architecture
+- **🔄 Offline Support** - Service worker with caching strategies
+- **🎨 Modern UI** - Clean design with hover states and animations
+
 ## Quick Start
 
 ### Prerequisites
